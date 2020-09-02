@@ -15,7 +15,7 @@ public class Territory : MonoBehaviour
     public GameObject dronePrefab;
     public World world;
 
-    public float timeLeft1 = 1f;
+    public float timeLeft1 = 0f;
     float timeLeft2 = 1f;
     public float capturePoint = 0;
 
@@ -47,7 +47,7 @@ public class Territory : MonoBehaviour
                     {
                         Instantiate(dronePrefab, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
                         world.numPopulation1++;
-                        timeLeft1 = 5f;
+                        timeLeft1 = 2f;
                     }
                 }
             }

@@ -1,43 +1,38 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
-public class Drone : MonoBehaviour
+public abstract class Drone : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float health = 20;
+    public float maxHealth;
+    public float wander;
+    public float seek;
+    public float arrive;
+    public float flee;
+    public float flock;
+    public float capture;
+    public float visionRange;
 
-    public float health = 10;
-
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        HealthDegen();
-        DestroyObject();
-    }
-
-    private void DestroyObject()
+    public virtual void DestroyWhenHealthIsZero()
     {
         if (health <= 0)
         {
             Destroy(gameObject);
         }
+
     }
 
-    public void HealthDegen()
+    public virtual void HealthDegen()
     {
         if (health > 0)
         {
             health -= Time.deltaTime;
         }
     }
-
-    public void HealthRegen()
+    public virtual void HealthRegen()
     {
-        if (health < 50)
+        if (health < 30)
         {
             health += (Time.deltaTime * 3);
         }

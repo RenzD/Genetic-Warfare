@@ -262,8 +262,8 @@ public class Steering : MonoBehaviour
             if (dist < enemyTargetRadius)
             {
                 rb.Velocity = Vector3.zero;
-                Vector2 direction = new Vector2(target.transform.position.x - transform.position.x,
-                                            target.transform.position.y - transform.position.y);
+                Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
+                                            targetPosition.y - transform.position.y);
                 transform.right = direction;
                 StartCoroutine(shoot.Shoot());
                 return Vector3.zero;
@@ -274,6 +274,11 @@ public class Steering : MonoBehaviour
             if (dist < targetRadius)
             {
                 rb.Velocity = Vector3.zero;
+
+                Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
+                                            targetPosition.y - transform.position.y);
+                transform.right = direction;
+
                 return Vector3.zero;
             }
         }

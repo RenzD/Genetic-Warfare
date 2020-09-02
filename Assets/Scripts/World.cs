@@ -24,4 +24,5 @@ public class World : MonoBehaviour
         maxPopulation1 = ownedTerritory1 * 5;
         maxPopulation2 = ownedTerritory2 * 5;
     }
+
 }
