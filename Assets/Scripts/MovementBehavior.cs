@@ -13,7 +13,8 @@ public class MovementBehavior : MonoBehaviour
         SEEK, 
         ARRIVE,
         FLEE,
-        FLOCK
+        FLOCK,
+        CAPTURE
     };
 
     public BehaviorState behaviorState = BehaviorState.WANDER;
@@ -22,12 +23,16 @@ public class MovementBehavior : MonoBehaviour
     //AIRigidbody rb;
     Sensor sensor;
     Vision vision;
+    
+
     //Shooting shoot;
     public Transform target;
-    public TargetObject targetObject;
+    public Resource resourceObject;
+    public Territory territoryObject;
     public Drone droneObject;
     public Faction1 faction1;
     public Faction2 faction2;
+    public World world;
 
     //GameObject debugRing;
 
@@ -37,14 +42,15 @@ public class MovementBehavior : MonoBehaviour
     public float velocityMatchWeight = 1f;
 
     [Header("Arrive")]
-    public float arriveSize = 5f;
+    public float arriveSize;
 
     [Header("Priority")]
-    public float wanderP;
-    public float seekP;
-    public float arriveP;
-    public float fleeP;
-    public float flockP;
+    public float wanderAtt;
+    public float seekAtt;
+    public float arriveAtt;
+    public float fleeAtt;
+    public float flockAtt;
+    public float captureAtt;
 
     //----------------------------------------
 
@@ -53,13 +59,14 @@ public class MovementBehavior : MonoBehaviour
     private string flee = "FLEE";
     private string arrive = "ARRIVE";
     private string flock = "FLOCK";
+    private string capture = "CAPTURE";
 
     void Awake()
     {
         //		DebugDraw debugDraw = gameObject.GetComponent<DebugDraw> ();
         //		debugRing = debugDraw.createRing (Vector3.zero, wanderRadius);
         //rb = GetComponent<AIRigidbody>();
-}
+    }
 
     void Start()
     {
@@ -78,8 +85,6 @@ public class MovementBehavior : MonoBehaviour
         GetVisionTargets();
         GetBehaviorPriority();
 
-       
-
         Vector3 accel = Vector3.zero;
         switch (behaviorState)
         {
@@ -90,13 +95,16 @@ public class MovementBehavior : MonoBehaviour
                 accel = steeringBasics.SeekEnemy(faction2.transform.position);
                 break;
             case BehaviorState.ARRIVE:
-                accel = steeringBasics.Arrive(targetObject.transform.position, arriveSize);
+                accel = Arrive();
                 break;
             case BehaviorState.FLEE:
                 accel = steering.GetSteeringFlee(faction2.transform.position);
                 break;
             case BehaviorState.FLOCK:
                 accel = steering.Flock(accel);
+                break;
+            case BehaviorState.CAPTURE:
+                accel = Capture();
                 break;
             default:
                 Debug.Log("Unknown State");
@@ -106,23 +114,43 @@ public class MovementBehavior : MonoBehaviour
         steeringBasics.LookWhereYoureGoing();
     }
 
+    private Vector3 Arrive()
+    {
+        Vector3 accel = steeringBasics.Arrive(resourceObject.transform.position, this);
+        if (accel == Vector3.zero)
+        {
+            resourceObject.resourceHealth -= Time.deltaTime;
+        }
+        return accel;
+    }
+
+    private Vector3 Capture()
+    {
+        Vector3 accel = steeringBasics.Arrive(territoryObject.transform.position, this);
+        if (accel == Vector3.zero)
+        {
+            territoryObject.capturePoint += Time.deltaTime;
+        }
+
+        return accel;
+    }
+
     private void GetBehaviorPriority()
     {
         var dictionary = new Dictionary<string, float>(5);
-        dictionary.Add(wander, wanderP);
-        dictionary.Add(seek, seekP);
-        dictionary.Add(arrive, arriveP);
-        dictionary.Add(flee, fleeP);
-        dictionary.Add(flock, flockP);
+        dictionary.Add(wander, wanderAtt);
+        dictionary.Add(seek, seekAtt);
+        dictionary.Add(arrive, arriveAtt);
+        dictionary.Add(flee, fleeAtt);
+        dictionary.Add(flock, flockAtt);
+        dictionary.Add(capture, captureAtt);
 
-        
-
-        // Order by values. LINQ
-        /*
+        /** Order by values. LINQ
+         * 
         var items = from pair in dictionary
                     orderby pair.Value ascending
                     select pair;
-        */
+
 
         // Display results.
         /*
@@ -140,12 +168,9 @@ public class MovementBehavior : MonoBehaviour
 
         /*
         Debug.Log("0: " + items.ElementAt(0));
-        Debug.Log("1: " + items.ElementAt(1));
-        Debug.Log("2: " + items.ElementAt(2));
-        //Debug.Log("Dictionary Wander: " + dictionary["wanderP"]);
         */
 
-        //***********************************************************************************
+        /**
         // CHECK WHEN IN VISION
         // WANDER IS DEFAULT
         // CHECK FOR VISION
@@ -161,15 +186,13 @@ public class MovementBehavior : MonoBehaviour
         //      CHECK PRIORITY OF FLOCK, ARRIVE
         // IF THERE IS AN ENEMY AND A RESOURCE
         //      CHECK PRIORITY SEEK, FLEE, ARRIVE
-
         // IF THERE IS AN ENEMY, ALLY, AND A RESOURCE
         //      CHECK PRIORITY OF SEEK, ARRIVE, FLEE, FLOCK
-        //***********************************************************************************
-
+        //**********************************************************************************/
         if (dictionary.Count != 0)
         {
             // NONE
-            if (faction1 == null && faction2 == null && targetObject == null)
+            if (faction1 == null && faction2 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[wander] > dictionary[flock])
                 {
@@ -181,7 +204,7 @@ public class MovementBehavior : MonoBehaviour
                 }
             }
             // ALLY ONLY
-            else if (faction1 != null && faction2 == null && targetObject == null)
+            else if (faction1 != null && faction2 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[wander] > dictionary[flock])
                 {
@@ -193,7 +216,7 @@ public class MovementBehavior : MonoBehaviour
                 }
             }
             // ENEMY ONLY
-            else if (faction2 != null && faction1 == null && targetObject == null)
+            else if (faction2 != null && faction1 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[seek] > dictionary[flee])
                 {
@@ -205,12 +228,37 @@ public class MovementBehavior : MonoBehaviour
                 }
             }
             // RESOURCE ONLY
-            else if(targetObject != null && faction1 == null && faction2 == null)
+            else if (resourceObject != null && faction1 == null && faction2 == null && territoryObject == null)
             {
                 behaviorState = BehaviorState.ARRIVE;
             }
+            // TERRITORY ONLY
+            else if (territoryObject != null && resourceObject == null && faction1 == null && faction2 == null)
+            {
+                if (territoryObject.territoryState == Territory.TerritoryState.FACTION2 || 
+                    territoryObject.territoryState == Territory.TerritoryState.UNCAPTURED)
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                } else
+                {
+                    behaviorState = BehaviorState.WANDER;
+                }
+            }
+            // TERRITORY AND ENEMY
+            else if (territoryObject != null && faction2 != null && resourceObject == null && faction1 == null)
+            {
+                if (dictionary[capture] > dictionary[flee])
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                } 
+                else
+                {
+                    behaviorState = BehaviorState.FLEE;
+                }
+            } 
+            
             // ALLY AND ENEMY
-            else if(faction1 != null && faction2 != null && targetObject == null)
+            else if (faction1 != null && faction2 != null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[seek] > dictionary[flee] && dictionary[seek] > dictionary[flock])
                 {
@@ -225,8 +273,9 @@ public class MovementBehavior : MonoBehaviour
                     behaviorState = BehaviorState.FLOCK;
                 }
             }
+            
             // ALLY AND RESOURCE
-            else if(faction1 != null && targetObject != null && faction2 == null)
+            else if(faction1 != null && resourceObject != null && faction2 == null)
             {
                 if (dictionary[flock] > dictionary[arrive])
                 {
@@ -237,8 +286,9 @@ public class MovementBehavior : MonoBehaviour
                     behaviorState = BehaviorState.ARRIVE;
                 }
             }
+            
             // ENEMY AND RESOURCE
-            else if (faction2 != null && targetObject != null && faction1 == null)
+            else if (faction2 != null && resourceObject != null && faction1 == null && territoryObject == null)
             {
                 if (dictionary[seek] > dictionary[arrive] && dictionary[seek] > dictionary[flee])
                 {
@@ -254,31 +304,32 @@ public class MovementBehavior : MonoBehaviour
                 }
             }
             //ENEMY, ALLY, AND RESOURCE
-            else if(faction1 != null && faction2 != null && targetObject != null)
+            else if(faction1 != null && faction2 != null && resourceObject != null && territoryObject == null)
             {
                 //SEEK, ARRIVE, FLEE, FLOCK
                 if (dictionary[seek] >= dictionary[arrive] && dictionary[seek] >= dictionary[flee] 
-                                                           && dictionary[seek] >= dictionary[flock])
+                                                            && dictionary[seek] >= dictionary[flock])
                 {
                     behaviorState = BehaviorState.SEEK;
                 }
                 else if (dictionary[arrive] >= dictionary[seek] && dictionary[arrive] >= dictionary[flee]
-                                                           && dictionary[arrive] >= dictionary[flock])
+                                                            && dictionary[arrive] >= dictionary[flock])
                 {
                     behaviorState = BehaviorState.ARRIVE;
                 }
                 else if (dictionary[flee] >= dictionary[seek] && dictionary[flee] >= dictionary[arrive]
-                                                           && dictionary[flee] >= dictionary[flock])
+                                                            && dictionary[flee] >= dictionary[flock])
                 {
                     behaviorState = BehaviorState.FLEE;
                 }
-                
+
                 else if (dictionary[flock] >= dictionary[seek] && dictionary[flock] >= dictionary[arrive]
-                                                           && dictionary[flock] >= dictionary[flee])
+                                                            && dictionary[flock] >= dictionary[flee])
                 {
                     behaviorState = BehaviorState.FLOCK;
                 }
-            } else
+            } 
+            else
             {
                 if (dictionary[wander] > dictionary[flock])
                 {
@@ -328,9 +379,9 @@ public class MovementBehavior : MonoBehaviour
 
     private void GetVisionTargets()
     {
-        if (targetObject != null && !vision.targets.Contains(targetObject.gameObject))
+        if (resourceObject != null && !vision.targets.Contains(resourceObject.gameObject))
         {
-            targetObject = null;
+            resourceObject = null;
         }
         if (droneObject != null && !vision.targets.Contains(droneObject.gameObject))
         {
@@ -344,17 +395,21 @@ public class MovementBehavior : MonoBehaviour
         {
             faction2 = null;
         }
+        if (territoryObject != null && !vision.targets.Contains(territoryObject.gameObject))
+        {
+            territoryObject = null;
+        }
 
         foreach (GameObject target in vision.targets)
         {
             //Debug.Log("Inside foreach");
             // SET UP TYPES OF OBJECTS
-            if (target.GetComponent<TargetObject>())
+            if (target.GetComponent<Resource>())
             {
-                if (targetObject == null)
-                    targetObject = target.GetComponent<TargetObject>();
-                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(targetObject.transform.position, transform.position))
-                    targetObject = target.GetComponent<TargetObject>();
+                if (resourceObject == null)
+                    resourceObject = target.GetComponent<Resource>();
+                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(resourceObject.transform.position, transform.position))
+                    resourceObject = target.GetComponent<Resource>();
             }
             else if (target.GetComponent<Drone>())
             {
@@ -377,18 +432,26 @@ public class MovementBehavior : MonoBehaviour
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(faction2.transform.position, transform.position))
                     faction2 = target.GetComponent<Faction2>();
             }
+            else if (target.GetComponent<Territory>())
+            {
+                if (territoryObject == null)
+                    territoryObject = target.GetComponent<Territory>();
+                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(territoryObject.transform.position, transform.position))
+                    territoryObject = target.GetComponent<Territory>();
+            }
         }
     }
 
     private void GenerateRandomAttributes()
     {
         //float[] attributes = { Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)};
-        float[] att = new float[5];
+        float[] att = new float[6];
         att[0] = Random.Range(0f, 1f); // Wander
         att[1] = Random.Range(0f, 1f); // Seek
         att[2] = Random.Range(0f, 1f); // Arrive
         att[3] = Random.Range(0f, 1f); // Flee
         att[4] = Random.Range(0f, 1f); // Flock
+        att[5] = Random.Range(0f, 1f); // Capture
 
         float sum = 0;
         foreach (float val in att)
@@ -396,10 +459,11 @@ public class MovementBehavior : MonoBehaviour
             sum += val;
         }
 
-        wanderP = (att[0] / sum) * 100f;
-        seekP = (att[1] / sum) * 100f;
-        arriveP = (att[2] / sum) * 100f;
-        fleeP = (att[3] / sum) * 100f;
-        flockP = (att[4] / sum) * 100f;
+        wanderAtt = (att[0] / sum) * 100f;
+        seekAtt = (att[1] / sum) * 100f;
+        arriveAtt = (att[2] / sum) * 100f;
+        fleeAtt = (att[3] / sum) * 100f;
+        flockAtt = (att[4] / sum) * 100f;
+        captureAtt = (att[5] / sum) * 100f;
     }
 }

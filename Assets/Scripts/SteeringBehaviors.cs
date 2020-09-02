@@ -7,6 +7,7 @@ public class SteeringBehaviors : MonoBehaviour
     AIRigidbody rb;
     Steering steeringBasics;
     Sensor sensor;
+    MovementBehavior mb;
 
     [Header("Wander")]
     public float wanderRadius = 1.2f;
@@ -41,13 +42,12 @@ public class SteeringBehaviors : MonoBehaviour
     public float sepMaxAcceleration = 25;
     public float maxSepDist = 1f;
 
-    float flockSize = 0.005f;
-
     void Awake()
     {
         rb = GetComponent<AIRigidbody>();
         steeringBasics = GetComponent<Steering>();
         sensor = transform.Find("Sensor").GetComponent<Sensor>();
+        mb = GetComponent<MovementBehavior>();
 
         //Velocity Match
         facingCosineVal = Mathf.Cos(facingCosine * Mathf.Deg2Rad);
@@ -200,7 +200,7 @@ public class SteeringBehaviors : MonoBehaviour
         {
             centerOfMass = centerOfMass / count;
 
-            return steeringBasics.Arrive(centerOfMass, flockSize);
+            return steeringBasics.Arrive(centerOfMass, mb);
         }
     }
 

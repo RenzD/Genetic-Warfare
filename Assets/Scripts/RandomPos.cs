@@ -17,7 +17,7 @@ public class RandomPos : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0f);
+            //transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0f);
             timeLeft = 4;
         }
     }

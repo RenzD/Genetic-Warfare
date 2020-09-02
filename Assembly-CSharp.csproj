@@ -63,22 +63,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\RandomPos.cs" />
     <Compile Include="Assets\Scripts\AIRigidbody.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Drone.cs" />
     <Compile Include="Assets\Scripts\Faction1.cs" />
     <Compile Include="Assets\Scripts\Faction2.cs" />
     <Compile Include="Assets\Scripts\MovementBehavior.cs" />
+    <Compile Include="Assets\Scripts\RandomPos.cs" />
+    <Compile Include="Assets\Scripts\Resource.cs" />
     <Compile Include="Assets\Scripts\Sensor.cs" />
     <Compile Include="Assets\Scripts\Shooting.cs" />
     <Compile Include="Assets\Scripts\Steering.cs" />
     <Compile Include="Assets\Scripts\SteeringBehaviors.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
-    <Compile Include="Assets\Scripts\TargetObject.cs" />
+    <Compile Include="Assets\Scripts\Territory.cs" />
     <Compile Include="Assets\Scripts\Vision.cs" />
     <Compile Include="Assets\Scripts\Wander.cs" />
     <Compile Include="Assets\Scripts\WanderUnit.cs" />
+    <Compile Include="Assets\Scripts\World.cs" />
     <Compile Include="Assets\TestScenarios\Scripts\DebugSphereCast.cs" />
     <Compile Include="Assets\TestScenarios\Scripts\PerlinHelper.cs" />
     <Compile Include="Assets\TestScenarios\Scripts\RandomizeTerrain.cs" />

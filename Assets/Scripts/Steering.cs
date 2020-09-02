@@ -23,11 +23,14 @@ public class Steering : MonoBehaviour
 
     [Header("Arrive")]
     /// The radius from the target that means we are close enough and have arrived
-    public float targetRadius = 1f;
+    public float targetRadius = 2f;
+
+    public float captureRadius = 3f;
     /// The radius from the target where we start to slow down
     public float slowRadius = 1f;
     /// The time in which we want to achieve the targetSpeed
     public float timeToTarget = 0.1f;
+    public float flockSize = 0.005f;
 
     Shooting shoot;
     public GameObject target;
@@ -238,7 +241,7 @@ public class Steering : MonoBehaviour
         return acceleration;
     }
 
-    public Vector3 Arrive(Vector3 targetPosition, float arriveSize)
+    public Vector3 Arrive(Vector3 targetPosition, MovementBehavior mb)
     {
         Debug.DrawLine(transform.position, targetPosition, Color.cyan, 0f, false);
 
@@ -251,14 +254,44 @@ public class Steering : MonoBehaviour
         /* Get the distance to the target */
         float dist = targetVelocity.magnitude;
 
+        //flockArrive = 0.005f;
+        //arriveSize = 2f;
         /* If we are within the stopping radius then stop */
-        if (dist < arriveSize)
+        if (mb.behaviorState == MovementBehavior.BehaviorState.SEEK)
         {
-            rb.Velocity = Vector3.zero;
-
-            //Debug.Log("Shooting");
-
-            return Vector3.zero;
+            if (dist < enemyTargetRadius)
+            {
+                rb.Velocity = Vector3.zero;
+                Vector2 direction = new Vector2(target.transform.position.x - transform.position.x,
+                                            target.transform.position.y - transform.position.y);
+                transform.right = direction;
+                StartCoroutine(shoot.Shoot());
+                return Vector3.zero;
+            }
+        }
+        else if (mb.behaviorState == MovementBehavior.BehaviorState.ARRIVE)
+        {
+            if (dist < targetRadius)
+            {
+                rb.Velocity = Vector3.zero;
+                return Vector3.zero;
+            }
+        }
+        else if (mb.behaviorState == MovementBehavior.BehaviorState.FLOCK)
+        {
+            if (dist < flockSize)
+            {
+                rb.Velocity = Vector3.zero;
+                return Vector3.zero;
+            }
+        }
+        else if (mb.behaviorState == MovementBehavior.BehaviorState.CAPTURE)
+        {
+            if (dist < captureRadius)
+            {
+                rb.Velocity = Vector3.zero;
+                return Vector3.zero;
+            }
         }
 
         /* Calculate the target speed, full speed at slowRadius distance and 0 speed at 0 distance */

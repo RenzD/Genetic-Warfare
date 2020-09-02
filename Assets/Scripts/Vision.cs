@@ -42,7 +42,8 @@ public class Vision : MonoBehaviour
             _targets.Add(rb);
         }
         */
-        if (other.GetComponent<TargetObject>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>())
+        if (other.GetComponent<Resource>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || 
+            other.GetComponent<Faction2>() || other.GetComponent<Territory>())
             _targets.Add(other);
     }
 
@@ -55,7 +56,8 @@ public class Vision : MonoBehaviour
             _targets.Remove(rb);
         }
         */
-        if (other.GetComponent<TargetObject>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>())
+        if (other.GetComponent<Resource>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || 
+            other.GetComponent<Faction2>() || other.GetComponent<Territory>())
             _targets.Remove(other);
     }
 
