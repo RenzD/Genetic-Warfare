@@ -14,15 +14,14 @@ public class World : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxPopulation1 = ownedTerritory1 * 3;
+        maxPopulation1 = ownedTerritory1 * 5;
         maxPopulation2 = ownedTerritory2 * 5;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        maxPopulation1 = ownedTerritory1 * 3;
+        maxPopulation1 = ownedTerritory1 * 5;
         maxPopulation2 = ownedTerritory2 * 5;
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Drone.cs" />
     <Compile Include="Assets\Scripts\Faction1.cs" />
     <Compile Include="Assets\Scripts\Faction2.cs" />
+    <Compile Include="Assets\Scripts\HealthResource.cs" />
     <Compile Include="Assets\Scripts\MovementBehavior.cs" />
     <Compile Include="Assets\Scripts\RandomPos.cs" />
     <Compile Include="Assets\Scripts\Resource.cs" />

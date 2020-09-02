@@ -28,11 +28,14 @@ public class MovementBehavior : MonoBehaviour
     //Shooting shoot;
     public Transform target;
     public Resource resourceObject;
+    public HealthResource healthObject;
     public Territory territoryObject;
     public Drone droneObject;
+    public Drone drone; // this drone
     public Faction1 faction1;
     public Faction2 faction2;
     public World world;
+
 
     //GameObject debugRing;
 
@@ -120,6 +123,7 @@ public class MovementBehavior : MonoBehaviour
         if (accel == Vector3.zero)
         {
             resourceObject.resourceHealth -= Time.deltaTime;
+            drone.HealthRegen();
         }
         return accel;
     }
@@ -275,8 +279,11 @@ public class MovementBehavior : MonoBehaviour
             }
             
             // ALLY AND RESOURCE
-            else if(faction1 != null && resourceObject != null && faction2 == null)
+            else if(faction1 != null && resourceObject != null && faction2 == null && territoryObject == null)
             {
+                behaviorState = BehaviorState.ARRIVE;
+
+                /*
                 if (dictionary[flock] > dictionary[arrive])
                 {
                     behaviorState = BehaviorState.FLOCK;
@@ -285,6 +292,7 @@ public class MovementBehavior : MonoBehaviour
                 {
                     behaviorState = BehaviorState.ARRIVE;
                 }
+                */
             }
             
             // ENEMY AND RESOURCE
@@ -346,35 +354,6 @@ public class MovementBehavior : MonoBehaviour
             Debug.Log("List is empty");
         }
 
-        /*
-        if (dictionary.Count != 0)
-        {
-            //Debug.Log(items.First().Key);
-            if (items.First().Key == "wander")
-            {
-                behaviorState = BehaviorState.WANDER;
-            }
-            else if (items.First().Key == "seek")
-            {
-                behaviorState = BehaviorState.SEEK;
-            }
-            else if (items.First().Key == "arrive")
-            {
-                behaviorState = BehaviorState.ARRIVE;
-            }
-            else if (items.First().Key == "flee")
-            {
-                behaviorState = BehaviorState.FLEE;
-            }
-            else if (items.First().Key == "flock")
-            {
-                behaviorState = BehaviorState.FLOCK;
-            }
-        } 
-        else
-        {
-            Debug.Log("List is empty");
-        }*/
     }
 
     private void GetVisionTargets()
@@ -399,6 +378,10 @@ public class MovementBehavior : MonoBehaviour
         {
             territoryObject = null;
         }
+        if (healthObject != null && !vision.targets.Contains(healthObject.gameObject))
+        {
+            healthObject = null;
+        }
 
         foreach (GameObject target in vision.targets)
         {
@@ -410,6 +393,13 @@ public class MovementBehavior : MonoBehaviour
                     resourceObject = target.GetComponent<Resource>();
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(resourceObject.transform.position, transform.position))
                     resourceObject = target.GetComponent<Resource>();
+            }
+            else if (target.GetComponent<HealthResource>())
+            {
+                if (healthObject == null)
+                    healthObject = target.GetComponent<HealthResource>();
+                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(healthObject.transform.position, transform.position))
+                    healthObject = target.GetComponent<HealthResource>();
             }
             else if (target.GetComponent<Drone>())
             {
