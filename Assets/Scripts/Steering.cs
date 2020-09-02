@@ -33,7 +33,6 @@ public class Steering : MonoBehaviour
     public float flockSize = 0.005f;
 
     Shooting shoot;
-    public GameObject target;
 
     [Header("Look Direction Smoothing")]
 
@@ -198,8 +197,8 @@ public class Steering : MonoBehaviour
         {
             rb.Velocity = Vector3.zero;
 
-            Vector2 direction = new Vector2(target.transform.position.x - transform.position.x,
-                                            target.transform.position.y - transform.position.y);
+            Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
+                                            targetPosition.y - transform.position.y);
             transform.right = direction;
 
             StartCoroutine(shoot.Shoot());

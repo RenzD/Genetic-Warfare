@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3004667264445904381}
   - component: {fileID: 3004667264445904382}
   - component: {fileID: 3004667264445904135}
-  - component: {fileID: 3004667264445904383}
+  - component: {fileID: -4008459134947332096}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -224,7 +224,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 567
---- !u!114 &3004667264445904383
+--- !u!114 &-4008459134947332096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,7 +246,7 @@ MonoBehaviour:
   capture: 0
   visionRange: 0
   behaviorState: 0
-  drone: {fileID: 3004667264445904383}
+  drone: {fileID: -4008459134947332096}
   target: {fileID: 0}
   resourceObject: {fileID: 0}
   healthObject: {fileID: 0}
