@@ -201,7 +201,7 @@ public class Steering : MonoBehaviour
                                             targetPosition.y - transform.position.y);
             transform.right = direction;
 
-            StartCoroutine(shoot.Shoot());
+            //StartCoroutine(shoot.Shoot());
 
             //Debug.Log("Shooting");
 
@@ -264,7 +264,7 @@ public class Steering : MonoBehaviour
                 Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
                                             targetPosition.y - transform.position.y);
                 transform.right = direction;
-                StartCoroutine(shoot.Shoot());
+                //StartCoroutine(shoot.Shoot());
                 return Vector3.zero;
             }
         }

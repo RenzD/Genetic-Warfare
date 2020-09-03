@@ -42,7 +42,7 @@ public class Sensor : MonoBehaviour
             _targets.Add(rb);
         }
         */
-        if (other.GetComponent<Drone>() || other.GetComponent<Faction1>())
+        if (other.GetComponent<Faction1>())
             _targets.Add(other);
     }
 
@@ -55,7 +55,7 @@ public class Sensor : MonoBehaviour
             _targets.Remove(rb);
         }
         */
-        if (other.GetComponent<Drone>() || other.GetComponent<Faction1>())
+        if (other.GetComponent<Faction1>())
             _targets.Remove(other);
     }
 

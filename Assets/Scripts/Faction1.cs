@@ -22,11 +22,13 @@ public class Faction1 : MovementBehavior
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
-
+    
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+
+        SetHealth();
 
         if (health < 0)
         {
@@ -268,7 +270,7 @@ public class Faction1 : MovementBehavior
                 accel = steering.GetSteeringWander();
                 break;
             case BehaviorState.SEEK:
-                accel = steeringBasics.SeekEnemy(faction2.transform.position);
+                accel = SeekEnemy();
                 break;
             case BehaviorState.ARRIVE:
                 accel = Arrive();
@@ -288,6 +290,16 @@ public class Faction1 : MovementBehavior
         }
         steeringBasics.Steer(accel);
         steeringBasics.LookWhereYoureGoing();
+    }
+
+    private Vector3 SeekEnemy()
+    {
+        Vector3 accel = steeringBasics.SeekEnemy(faction2.transform.position);
+        if (accel == Vector3.zero)
+        {
+            faction2.IsAttacked();
+        }
+        return accel;
     }
 
     private Vector3 Arrive()

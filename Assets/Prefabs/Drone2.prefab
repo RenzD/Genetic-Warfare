@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683541721065294209}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5224078, y: -2.568261, z: 0}
+  m_LocalPosition: {x: 0.6, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6427434857472534348}
@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6946922293501936284}
   - component: {fileID: 494165594139469849}
-  - component: {fileID: 8774250146186146691}
+  - component: {fileID: 1239444910400976302}
   m_Layer: 8
   m_Name: Sensor
   m_TagString: Untagged
@@ -206,7 +206,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.2
---- !u!114 &8774250146186146691
+--- !u!114 &1239444910400976302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4753753356682543175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d88af9970e78c343bbeeea0e37d7484, type: 3}
+  m_Script: {fileID: 11500000, guid: 5072eed0a32e1d447830bce12227aefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5070952631570787263
@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 2622964418393123266}
   - component: {fileID: 3512281508158532705}
   - component: {fileID: 3251705093963926865}
+  - component: {fileID: 148394617326287333}
   m_Layer: 0
   m_Name: Drone2
   m_TagString: Untagged
@@ -422,10 +423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d087c90fb289a64286107faf8b52eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 3
+  maxVelocity: 4
   maxAcceleration: 5
   turnSpeed: 30
-  enemyTargetRadius: 0.005
+  enemyTargetRadius: 4
   enemySlowRadius: 1
   enemyTimeToTarget: 0.1
   targetRadius: 2
@@ -433,7 +434,6 @@ MonoBehaviour:
   slowRadius: 1
   timeToTarget: 0.1
   flockSize: 0.005
-  target: {fileID: 0}
   smoothing: 1
   numSamplesForSmoothing: 5
 --- !u!58 &6427434857472534449
@@ -486,7 +486,7 @@ MonoBehaviour:
   wanderRadius: 1.2
   wanderDistance: 2
   wanderJitter: 40
-  panicDist: 3.5
+  panicDist: 5
   decelerateOnStop: 1
   fleeMaxAcceleration: 10
   fleeTimeToTarget: 0.1
@@ -512,6 +512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  attack: 0.001
+  speed: 0
   maxHealth: 0
   wander: 0
   seek: 0
@@ -526,7 +528,6 @@ MonoBehaviour:
   resourceObject: {fileID: 0}
   healthObject: {fileID: 0}
   territoryObject: {fileID: 0}
-  droneObject: {fileID: 0}
   faction1: {fileID: 0}
   faction2: {fileID: 0}
   cohesionWeight: 1.5
@@ -535,3 +536,25 @@ MonoBehaviour:
   arriveSize: 0
   worldObject: {fileID: 0}
   world: {fileID: 0}
+--- !u!114 &148394617326287333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427434857472534450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd48a8d001be2d448f08ad300022d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 848848382730135936}
+  bulletPrefab: {fileID: 3867760004196843280, guid: 686fe96612da4e349906d9b91c81db5e,
+    type: 3}
+  bulletForce: 20
+  hitImpact: {fileID: 9111931862347587710, guid: bf9685ae54fb4434d8c762245013f637,
+    type: 3}
+  lineRenderer: {fileID: 6693501806968269399}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 567

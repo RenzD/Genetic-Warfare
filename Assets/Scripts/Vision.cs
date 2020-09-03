@@ -42,8 +42,8 @@ public class Vision : MonoBehaviour
             _targets.Add(rb);
         }
         */
-        if (other.GetComponent<Resource>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || 
-            other.GetComponent<Faction2>() || other.GetComponent<Territory>() || other.GetComponent<HealthResource>())
+        if (other.GetComponent<Resource>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>() || 
+            other.GetComponent<Territory>() || other.GetComponent<HealthResource>())
             _targets.Add(other);
     }
 
@@ -56,8 +56,8 @@ public class Vision : MonoBehaviour
             _targets.Remove(rb);
         }
         */
-        if (other.GetComponent<Resource>() || other.GetComponent<Drone>() || other.GetComponent<Faction1>() || 
-            other.GetComponent<Faction2>() || other.GetComponent<Territory>() || other.GetComponent<HealthResource>())
+        if (other.GetComponent<Resource>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>() || 
+            other.GetComponent<Territory>() || other.GetComponent<HealthResource>())
             _targets.Remove(other);
     }
 

@@ -8,7 +8,6 @@ public class Faction2 : MovementBehavior
 {
     Steering steeringBasics;
     SteeringBehaviors steering;
-    Sensor sensor;
 
     [Header("World")]
     public GameObject worldObject;
@@ -18,7 +17,6 @@ public class Faction2 : MovementBehavior
         base.Start();
         steeringBasics = GetComponent<Steering>();
         steering = GetComponent<SteeringBehaviors>();
-        sensor = transform.Find("Sensor").GetComponent<Sensor>();
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
@@ -272,7 +270,7 @@ public class Faction2 : MovementBehavior
                 accel = steering.GetSteeringWander();
                 break;
             case BehaviorState.SEEK:
-                accel = steeringBasics.SeekEnemy(faction1.transform.position);
+                accel = SeekEnemy();
                 break;
             case BehaviorState.ARRIVE:
                 accel = Arrive();
@@ -281,7 +279,7 @@ public class Faction2 : MovementBehavior
                 accel = steering.GetSteeringFlee(faction1.transform.position);
                 break;
             case BehaviorState.FLOCK:
-                accel = steering.Flock(accel);
+                accel = steering.Flock2(accel);
                 break;
             case BehaviorState.CAPTURE:
                 accel = Capture();
@@ -292,6 +290,16 @@ public class Faction2 : MovementBehavior
         }
         steeringBasics.Steer(accel);
         steeringBasics.LookWhereYoureGoing();
+    }
+
+    private Vector3 SeekEnemy()
+    {
+        Vector3 accel = steeringBasics.SeekEnemy(faction1.transform.position);
+        if (accel == Vector3.zero)
+        {
+            faction1.IsAttacked();
+        }
+        return accel;
     }
 
     private Vector3 Arrive()

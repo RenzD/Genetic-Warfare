@@ -7,6 +7,7 @@ public class SteeringBehaviors : MonoBehaviour
     AIRigidbody rb;
     Steering steeringBasics;
     Sensor sensor;
+    Sensor2 sensor2;
     MovementBehavior mb;
 
     [Header("Wander")]
@@ -47,6 +48,7 @@ public class SteeringBehaviors : MonoBehaviour
         rb = GetComponent<AIRigidbody>();
         steeringBasics = GetComponent<Steering>();
         sensor = transform.Find("Sensor").GetComponent<Sensor>();
+        sensor2 = transform.Find("Sensor").GetComponent<Sensor2>();
         mb = GetComponent<MovementBehavior>();
 
         //Velocity Match
@@ -72,7 +74,19 @@ public class SteeringBehaviors : MonoBehaviour
         {
             accel = GetSteeringWander();
         }
+        return accel;
+    }
 
+    public Vector3 Flock2(Vector3 accel)
+    {
+        accel += GetSteeringCohesion(sensor2.targets) * cohesionWeight;
+        accel += GetSteeringSeparation(sensor2.targets) * separationWeight;
+        accel += GetSteeringVelocity(sensor2.targets) * velocityMatchWeight;
+
+        if (accel.magnitude < 0.005f)
+        {
+            accel = GetSteeringWander();
+        }
         return accel;
     }
 

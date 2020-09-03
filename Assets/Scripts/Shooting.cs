@@ -13,14 +13,6 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] private LayerMask layerMask = new LayerMask();
 
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            StartCoroutine(Shoot());
-        }
-    }
-
     public IEnumerator Shoot()
     {
         //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -44,7 +36,5 @@ public class Shooting : MonoBehaviour
 
         yield return new WaitForSeconds(0.002f);
         lineRenderer.enabled = false;
-
     }
-
 }

@@ -29,7 +29,6 @@ public abstract class MovementBehavior : Drone
     public Resource resourceObject;
     public HealthResource healthObject;
     public Territory territoryObject;
-    public Drone droneObject;
     public Faction1 faction1;
     public Faction2 faction2;
     
@@ -72,6 +71,7 @@ public abstract class MovementBehavior : Drone
 
         GetBehaviorPriority();
         DroneBehavior();
+
     }
 
 
@@ -80,10 +80,6 @@ public abstract class MovementBehavior : Drone
         if (resourceObject != null && !vision.targets.Contains(resourceObject.gameObject))
         {
             resourceObject = null;
-        }
-        if (droneObject != null && !vision.targets.Contains(droneObject.gameObject))
-        {
-            droneObject = null;
         }
         if (faction1 != null && !vision.targets.Contains(faction1.gameObject))
         {
@@ -119,13 +115,6 @@ public abstract class MovementBehavior : Drone
                     healthObject = target.GetComponent<HealthResource>();
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(healthObject.transform.position, transform.position))
                     healthObject = target.GetComponent<HealthResource>();
-            }
-            else if (target.GetComponent<Drone>())
-            {
-                if (droneObject == null)
-                    droneObject = target.GetComponent<Drone>();
-                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(droneObject.transform.position, transform.position))
-                    droneObject = target.GetComponent<Drone>();
             }
             else if (target.GetComponent<Faction1>())
             {
