@@ -511,17 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35d505ce6e327f4b87942612f4d6d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  attack: 0.001
-  speed: 0
-  maxHealth: 0
-  wander: 0
-  seek: 0
-  arrive: 0
-  flee: 0
-  flock: 0
-  capture: 0
-  visionRange: 0
   behaviorState: 0
   drone: {fileID: 3251705093963926865}
   target: {fileID: 0}
@@ -534,6 +523,18 @@ MonoBehaviour:
   separationWeight: 2
   velocityMatchWeight: 1
   arriveSize: 0
+  wander: 0
+  seek: 0
+  arrive: 0
+  flee: 0
+  flock: 0
+  health: 0
+  attack: 0.001
+  speed: 0
+  maxHealth: 0
+  capture: 0
+  visionRange: 0
+  slider: {fileID: 0}
   worldObject: {fileID: 0}
   world: {fileID: 0}
 --- !u!114 &148394617326287333

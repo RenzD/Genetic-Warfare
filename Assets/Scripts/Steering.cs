@@ -240,7 +240,7 @@ public class Steering : MonoBehaviour
         return acceleration;
     }
 
-    public Vector3 Arrive(Vector3 targetPosition, MovementBehavior mb)
+    public Vector3 Arrive(Vector3 targetPosition, Drone mb)
     {
         Debug.DrawLine(transform.position, targetPosition, Color.cyan, 0f, false);
 
@@ -256,7 +256,7 @@ public class Steering : MonoBehaviour
         //flockArrive = 0.005f;
         //arriveSize = 2f;
         /* If we are within the stopping radius then stop */
-        if (mb.behaviorState == MovementBehavior.BehaviorState.SEEK)
+        if (mb.behaviorState == Drone.BehaviorState.SEEK)
         {
             if (dist < enemyTargetRadius)
             {
@@ -268,7 +268,7 @@ public class Steering : MonoBehaviour
                 return Vector3.zero;
             }
         }
-        else if (mb.behaviorState == MovementBehavior.BehaviorState.ARRIVE)
+        else if (mb.behaviorState == Drone.BehaviorState.ARRIVE)
         {
             if (dist < targetRadius)
             {
@@ -281,7 +281,7 @@ public class Steering : MonoBehaviour
                 return Vector3.zero;
             }
         }
-        else if (mb.behaviorState == MovementBehavior.BehaviorState.FLOCK)
+        else if (mb.behaviorState == Drone.BehaviorState.FLOCK)
         {
             if (dist < flockSize)
             {
@@ -289,7 +289,7 @@ public class Steering : MonoBehaviour
                 return Vector3.zero;
             }
         }
-        else if (mb.behaviorState == MovementBehavior.BehaviorState.CAPTURE)
+        else if (mb.behaviorState == Drone.BehaviorState.CAPTURE)
         {
             if (dist < captureRadius)
             {

@@ -8,7 +8,7 @@ public class SteeringBehaviors : MonoBehaviour
     Steering steeringBasics;
     Sensor sensor;
     Sensor2 sensor2;
-    MovementBehavior mb;
+    Drone mb;
 
     [Header("Wander")]
     public float wanderRadius = 1.2f;
@@ -49,7 +49,7 @@ public class SteeringBehaviors : MonoBehaviour
         steeringBasics = GetComponent<Steering>();
         sensor = transform.Find("Sensor").GetComponent<Sensor>();
         sensor2 = transform.Find("Sensor").GetComponent<Sensor2>();
-        mb = GetComponent<MovementBehavior>();
+        mb = GetComponent<Drone>();
 
         //Velocity Match
         facingCosineVal = Mathf.Cos(facingCosine * Mathf.Deg2Rad);

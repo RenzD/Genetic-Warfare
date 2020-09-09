@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-public class Faction2 : MovementBehavior
+public class Faction2 : Drone
 {
     Steering steeringBasics;
     SteeringBehaviors steering;
