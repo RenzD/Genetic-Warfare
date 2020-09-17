@@ -8,25 +8,23 @@ public class Faction1 : Drone
 {
     Steering steeringBasics;
     SteeringBehaviors steering;
-    Sensor sensor;
 
     [Header("World")]
     public GameObject worldObject;
     public World world;
+
     protected override void Start()
     {
         base.Start();
         steeringBasics = GetComponent<Steering>();
         steering = GetComponent<SteeringBehaviors>();
-        sensor = transform.Find("Sensor").GetComponent<Sensor>();
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
-    
     // Update is called once per frame
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         SetHealth();
 
@@ -45,13 +43,15 @@ public class Faction1 : Drone
 
     protected override void GetBehaviorPriority()
     {
-        var dictionary = new Dictionary<string, float>(5);
-        dictionary.Add(wanderStr, wander);
-        dictionary.Add(seekStr, seek);
-        dictionary.Add(arriveStr, arrive);
-        dictionary.Add(fleeStr, flee);
-        dictionary.Add(flockStr, flock);
-        dictionary.Add(captureStr, capture);
+        Dictionary<string, float> dictionary = new Dictionary<string, float>(5)
+        {
+            { wanderStr, wander },
+            { seekStr, seek },
+            { arriveStr, arrive },
+            { fleeStr, flee },
+            { flockStr, flock },
+            { captureStr, capture }
+        };
 
         /** Order by values. LINQ
          * 
@@ -143,8 +143,8 @@ public class Faction1 : Drone
             // TERRITORY ONLY
             else if (territoryObject != null && resourceObject == null && faction1 == null && faction2 == null)
             {
-                if (territoryObject.territoryState == Territory.TerritoryState.FACTION2 ||
-                    territoryObject.territoryState == Territory.TerritoryState.UNCAPTURED)
+                if (territoryObject.territoryState == GeneticAlgorithm.TerritoryState.FACTION2 ||
+                    territoryObject.territoryState == GeneticAlgorithm.TerritoryState.UNCAPTURED)
                 {
                     behaviorState = BehaviorState.CAPTURE;
                 }

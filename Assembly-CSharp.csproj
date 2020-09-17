@@ -63,13 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\HealthBarPosition.cs" />
     <Compile Include="Assets\Scripts\AIRigidbody.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Drone.cs" />
     <Compile Include="Assets\Scripts\Drone1.cs" />
     <Compile Include="Assets\Scripts\Faction1.cs" />
     <Compile Include="Assets\Scripts\Faction2.cs" />
+    <Compile Include="Assets\Scripts\GeneticAlgorithm.cs" />
+    <Compile Include="Assets\Scripts\HealthBarPosition.cs" />
     <Compile Include="Assets\Scripts\HealthResource.cs" />
     <Compile Include="Assets\Scripts\RandomPos.cs" />
     <Compile Include="Assets\Scripts\Resource.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Assets\Scripts\Steering.cs" />
     <Compile Include="Assets\Scripts\SteeringBehaviors.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
-    <Compile Include="Assets\Scripts\Territory.cs" />
     <Compile Include="Assets\Scripts\Vision.cs" />
     <Compile Include="Assets\Scripts\Wander.cs" />
     <Compile Include="Assets\Scripts\WanderUnit.cs" />

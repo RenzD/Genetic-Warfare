@@ -19,7 +19,7 @@ public class World : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         maxPopulation1 = ownedTerritory1 * 5;
         maxPopulation2 = ownedTerritory2 * 5;

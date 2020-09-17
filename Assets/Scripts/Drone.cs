@@ -27,7 +27,7 @@ public abstract class Drone : MonoBehaviour
     public Transform target;
     public Resource resourceObject;
     public HealthResource healthObject;
-    public Territory territoryObject;
+    public GeneticAlgorithm territoryObject;
     public Faction1 faction1;
     public Faction2 faction2;
 
@@ -40,11 +40,7 @@ public abstract class Drone : MonoBehaviour
 
     [Header("Arrive")]
     public float arriveSize;
-
-
-    //----------------------------------------
     // Keys
-
     protected string wanderStr = "WANDER";
     protected string seekStr = "SEEK";
     protected string fleeStr = "FLEE";
@@ -52,7 +48,7 @@ public abstract class Drone : MonoBehaviour
     protected string flockStr = "FLOCK";
     protected string captureStr = "CAPTURE";
 
-    
+    [Header("Attributes")]
     public float wander;
     public float seek;
     public float arrive;
@@ -66,31 +62,32 @@ public abstract class Drone : MonoBehaviour
     public float capture;
     public float visionRange;
 
+    public float fitnessScore;
+
     public Slider slider;
 
     protected virtual void Start()
     {
         vision = transform.Find("Vision").GetComponent<Vision>();
-
-       
-
-        InitializeRandomAttributes();
-
         maxHealth = health;
-
+        fitnessScore = 0f;
         GetBehaviorPriority();
 
         //shoot = GetComponent<Shooting>();
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
+        TimeLived();
         HealthDegen();
         GetVisionTargets();
-
         GetBehaviorPriority();
         DroneBehavior();
+    }
 
+    private void TimeLived()
+    {
+        fitnessScore += (Time.deltaTime / 2);
     }
 
     private void GetVisionTargets()
@@ -148,12 +145,12 @@ public abstract class Drone : MonoBehaviour
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(faction2.transform.position, transform.position))
                     faction2 = target.GetComponent<Faction2>();
             }
-            else if (target.GetComponent<Territory>())
+            else if (target.GetComponent<GeneticAlgorithm>())
             {
                 if (territoryObject == null)
-                    territoryObject = target.GetComponent<Territory>();
+                    territoryObject = target.GetComponent<GeneticAlgorithm>();
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(territoryObject.transform.position, transform.position))
-                    territoryObject = target.GetComponent<Territory>();
+                    territoryObject = target.GetComponent<GeneticAlgorithm>();
             }
         }
     }
@@ -161,36 +158,7 @@ public abstract class Drone : MonoBehaviour
     protected virtual void GetBehaviorPriority() { }
     protected virtual void DroneBehavior() { }
 
-    private void InitializeRandomAttributes()
-    {
-        //float[] attributes = { Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)};
-        float[] att = new float[6];
-        att[0] = Random.Range(0f, 1f); // Wander
-        att[1] = Random.Range(0f, 1f); // Seek
-        att[2] = Random.Range(0f, 1f); // Arrive
-        att[3] = Random.Range(0f, 1f); // Flee
-        att[4] = Random.Range(0f, 1f); // Flock
-        att[5] = Random.Range(0f, 1f); // Capture
-
-        float sum = 0;
-        foreach (float val in att)
-        {
-            sum += val;
-        }
-
-        wander = (att[0] / sum) * 100f;
-        seek = (att[1] / sum) * 100f;
-        arrive = (att[2] / sum) * 100f;
-        flee = (att[3] / sum) * 100f;
-        flock = (att[4] / sum) * 100f;
-        capture = (att[5] / sum) * 100f;
-
-        health = Random.Range(30f, 40f);    // Healthh
-        attack = Random.Range(5f, 10f);     // Attack
-        speed = Random.Range(3f, 5f);       // Speed
-        visionRange = Random.Range(4f, 6f); // Vision Range
-
-    }
+    
 
     public virtual void DestroyWhenHealthIsZero()
     {
@@ -223,7 +191,7 @@ public abstract class Drone : MonoBehaviour
     }
     public virtual void HealthRegen()
     {
-        if (health < 30)
+        if (health < maxHealth)
         {
             health += (Time.deltaTime * 3);
         }
