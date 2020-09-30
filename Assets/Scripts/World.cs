@@ -35,7 +35,10 @@ public class World : MonoBehaviour
     public int ownedTerritory1 = 2;
     public int ownedTerritory2 = 2;
 
-    public int generation = 1;
+    public int generation1;
+    public int generation2;
+    public int numInitDrones1;
+    public int numInitDrones2;
 
     // Start is called before the first frame update
     void Start()

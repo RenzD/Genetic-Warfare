@@ -54,21 +54,28 @@ public abstract class Drone : MonoBehaviour
     public float arrive;
     public float flee;
     public float flock;
+    public float capture;
 
-    public float health;
     public float attack;
     public float speed;
-    public float maxHealth;
-    public float capture;
     public float visionRange;
-
+    public float health;
+    public float maxHealth;
     public float fitnessScore;
 
+    [Header("Other")]
     public Slider slider;
+    public GameObject impactEffect;
+    public GameObject deathEffect;
+    public LineRenderer lineRenderer;
+    public Transform firePoint;
+    public float attacktimer;
+    public float linetimer;
 
     protected virtual void Start()
     {
         vision = transform.Find("Vision").GetComponent<Vision>();
+        vision.GetComponent<CircleCollider2D>().radius = visionRange;
         fitnessScore = 0f;
         GetBehaviorPriority();
         //shoot = GetComponent<Shooting>();
@@ -156,7 +163,14 @@ public abstract class Drone : MonoBehaviour
     protected virtual void GetBehaviorPriority() { }
     protected virtual void DroneBehavior() { }
 
-    
+    public virtual void Clear()
+    {
+        if (behaviorState != BehaviorState.SEEK)
+        {
+            lineRenderer.enabled = false;
+            attacktimer = 0f;
+        }
+    }
 
     public virtual void DestroyWhenHealthIsZero()
     {
@@ -166,12 +180,33 @@ public abstract class Drone : MonoBehaviour
         }
     }
 
-    public virtual void SetHealth()
+    public virtual int DestroyDrone(int numPopulation)
+    {
+        if (health < 0)
+        {
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            numPopulation--;
+        }
+        return numPopulation;
+    }
+
+    public virtual void SetHealthSlider()
     {
         float norm = (health - 0f) / (maxHealth - 0f);
         slider.value = norm;
     }
 
+    public virtual void Attack(Drone enemyDrone)
+    { 
+        if (enemyDrone.health > 0)
+        {
+            enemyDrone.health -= attack;
+            fitnessScore += (attack / 2);
+        }
+    }
+
+    /*
     public virtual void IsAttacked()
     {
         if (health > 0)
@@ -179,7 +214,7 @@ public abstract class Drone : MonoBehaviour
             health -= Time.deltaTime;
         }
     }
-
+    */
     public virtual void HealthDegen()
     {
         if (health > 0)
@@ -191,7 +226,7 @@ public abstract class Drone : MonoBehaviour
     {
         if (health < maxHealth)
         {
-            health += (Time.deltaTime * 3);
+            health += (Time.deltaTime * 4);
         }
     }
 }

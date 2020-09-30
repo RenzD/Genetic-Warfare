@@ -33,7 +33,6 @@ public class Shooting : MonoBehaviour
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * 10);
         }
         lineRenderer.enabled = true;
-
         yield return new WaitForSeconds(0.002f);
         lineRenderer.enabled = false;
     }

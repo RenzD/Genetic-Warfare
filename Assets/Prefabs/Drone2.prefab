@@ -123,7 +123,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0, g: 0.0564754, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 1}
@@ -420,19 +420,27 @@ MonoBehaviour:
   separationWeight: 2
   velocityMatchWeight: 1
   arriveSize: 0
-  wander: 11.354609
-  seek: 29.596424
-  arrive: 29.400158
-  flee: 7.759962
-  flock: 4.2102547
-  health: 28.5145
-  attack: 7.961437
-  speed: 4.7001762
-  maxHealth: 30.628204
-  capture: 17.937315
-  visionRange: 4.067769
+  wander: 39.214302
+  seek: 39.173714
+  arrive: 33.40261
+  flee: 29.878788
+  flock: 32.35617
+  health: 37.737774
+  attack: 7.339364
+  speed: 4.2121735
+  maxHealth: 37.737774
+  capture: 36.508724
+  visionRange: 4.792012
   fitnessScore: 0
   slider: {fileID: 5449713594015959532}
+  impactEffect: {fileID: 1473625048454486, guid: 284f05ab582ef494a9ab1dd8bc1e76ae,
+    type: 3}
+  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338,
+    type: 3}
+  lineRenderer: {fileID: 6693501806968269399}
+  firePoint: {fileID: 848848382730135936}
+  attacktimer: 0
+  linetimer: 0
   worldObject: {fileID: 0}
   world: {fileID: 0}
 --- !u!212 &6427434857472534349
@@ -537,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d087c90fb289a64286107faf8b52eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 4
+  maxVelocity: 3.5
   maxAcceleration: 5
   turnSpeed: 30
   enemyTargetRadius: 4

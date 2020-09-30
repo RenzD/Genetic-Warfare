@@ -201,10 +201,6 @@ public class Steering : MonoBehaviour
                                             targetPosition.y - transform.position.y);
             transform.right = direction;
 
-            //StartCoroutine(shoot.Shoot());
-
-            //Debug.Log("Shooting");
-
             return Vector3.zero;
         }
 
@@ -264,7 +260,6 @@ public class Steering : MonoBehaviour
                 Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
                                             targetPosition.y - transform.position.y);
                 transform.right = direction;
-                //StartCoroutine(shoot.Shoot());
                 return Vector3.zero;
             }
         }
@@ -273,11 +268,9 @@ public class Steering : MonoBehaviour
             if (dist < targetRadius)
             {
                 rb.Velocity = Vector3.zero;
-
                 Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
                                             targetPosition.y - transform.position.y);
                 transform.right = direction;
-
                 return Vector3.zero;
             }
         }
@@ -294,6 +287,9 @@ public class Steering : MonoBehaviour
             if (dist < captureRadius)
             {
                 rb.Velocity = Vector3.zero;
+                Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
+                                            targetPosition.y - transform.position.y);
+                transform.right = direction;
                 return Vector3.zero;
             }
         }

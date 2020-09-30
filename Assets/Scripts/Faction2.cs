@@ -16,6 +16,7 @@ public class Faction2 : Drone
     {
         base.Start();
         steeringBasics = GetComponent<Steering>();
+        steeringBasics.maxVelocity = speed;
         steering = GetComponent<SteeringBehaviors>();
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
@@ -25,19 +26,8 @@ public class Faction2 : Drone
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        SetHealth();
-        if (health < 0)
-        {
-            Destroy(gameObject);
-            try
-            {
-                world.numPopulation2--;
-            }
-            catch
-            {
-                Debug.Log("Hello:");
-            }
-        }
+        SetHealthSlider();
+        world.numPopulation2 = DestroyDrone(world.numPopulation2);
     }
 
     protected override void GetBehaviorPriority()
@@ -290,6 +280,7 @@ public class Faction2 : Drone
                 Debug.Log("Unknown State");
                 break;
         }
+        Clear();
         steeringBasics.Steer(accel);
         steeringBasics.LookWhereYoureGoing();
     }
@@ -299,7 +290,27 @@ public class Faction2 : Drone
         Vector3 accel = steeringBasics.SeekEnemy(faction1.transform.position);
         if (accel == Vector3.zero)
         {
-            faction1.IsAttacked();
+
+            attacktimer += Time.deltaTime;
+            if (attacktimer > 0.8f)
+            {
+                lineRenderer.SetPosition(0, firePoint.position);
+                lineRenderer.SetPosition(1, faction1.transform.position);
+                linetimer = 0f;
+                lineRenderer.enabled = true; ;
+            }
+            if (attacktimer > 1f)
+            {
+                attacktimer = 0f;
+                lineRenderer.enabled = false;
+                Attack(faction1);
+                Instantiate(impactEffect, faction1.transform.position, Quaternion.identity);
+            }
+        }
+        else
+        {
+            attacktimer = 0f;
+            lineRenderer.enabled = false;
         }
         return accel;
     }

@@ -254,19 +254,27 @@ MonoBehaviour:
   separationWeight: 2
   velocityMatchWeight: 1
   arriveSize: 0
-  wander: 13.732701
-  seek: 13.911404
-  arrive: 39.673927
-  flee: 4.967362
-  flock: 15.347626
-  health: 36.03865
-  attack: 7.2118607
-  speed: 3.3125434
-  maxHealth: 25.237938
-  capture: 12.366984
-  visionRange: 5.2384777
+  wander: 39.219933
+  seek: 31.98161
+  arrive: 31.501463
+  flee: 35.223488
+  flock: 33.589973
+  health: 36.332214
+  attack: 6.029764
+  speed: 4.9298935
+  maxHealth: 36.332214
+  capture: 30.844172
+  visionRange: 4.280357
   fitnessScore: 0
   slider: {fileID: 509368693988524771}
+  impactEffect: {fileID: 1473625048454486, guid: 284f05ab582ef494a9ab1dd8bc1e76ae,
+    type: 3}
+  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338,
+    type: 3}
+  lineRenderer: {fileID: 3004667264985741450}
+  firePoint: {fileID: 3004667264758977565}
+  attacktimer: 0
+  linetimer: 0
   worldObject: {fileID: 0}
   world: {fileID: 0}
 --- !u!212 &3004667264445904129
@@ -387,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d087c90fb289a64286107faf8b52eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 4
+  maxVelocity: 3.5
   maxAcceleration: 5
   turnSpeed: 30
   enemyTargetRadius: 4

@@ -17,6 +17,9 @@ public class Faction1 : Drone
     {
         base.Start();
         steeringBasics = GetComponent<Steering>();
+        steeringBasics.maxVelocity = speed;
+
+
         steering = GetComponent<SteeringBehaviors>();
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
@@ -25,19 +28,8 @@ public class Faction1 : Drone
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        SetHealth();
-        if (health < 0)
-        {
-            Destroy(gameObject);
-            try
-            {
-                world.numPopulation1--;
-            }
-            catch
-            {
-                Debug.Log("Hello:");
-            }
-        }
+        SetHealthSlider();
+        world.numPopulation1 = DestroyDrone(world.numPopulation1);
     }
 
     protected override void GetBehaviorPriority()
@@ -262,6 +254,7 @@ public class Faction1 : Drone
 
     protected override void DroneBehavior()
     {
+        // Select Behavior
         Vector3 accel = Vector3.zero;
         switch (behaviorState)
         {
@@ -287,6 +280,9 @@ public class Faction1 : Drone
                 Debug.Log("Unknown State");
                 break;
         }
+        //Clears line renderer and resets attack
+        Clear();
+        //Updates the velocity of the current game object by the given linear
         steeringBasics.Steer(accel);
         steeringBasics.LookWhereYoureGoing();
     }
@@ -296,7 +292,26 @@ public class Faction1 : Drone
         Vector3 accel = steeringBasics.SeekEnemy(faction2.transform.position);
         if (accel == Vector3.zero)
         {
-            faction2.IsAttacked();
+            
+            attacktimer += Time.deltaTime;
+            if (attacktimer > 0.8f)
+            {
+                lineRenderer.SetPosition(0, firePoint.position);
+                lineRenderer.SetPosition(1, faction2.transform.position);
+                linetimer = 0f;
+                lineRenderer.enabled = true; ;
+            }
+            if (attacktimer > 1f)
+            {
+                attacktimer = 0f;
+                lineRenderer.enabled = false;
+                Attack(faction2);
+                Instantiate(impactEffect, faction2.transform.position, Quaternion.identity);
+            }
+        } else
+        {
+            attacktimer = 0f;
+            lineRenderer.enabled = false;
         }
         return accel;
     }
@@ -319,7 +334,6 @@ public class Faction1 : Drone
         {
             territoryObject.capturePoint += Time.deltaTime;
         }
-
         return accel;
     }
 

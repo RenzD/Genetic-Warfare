@@ -33,18 +33,12 @@ public class GeneticAlgorithm : MonoBehaviour
     public float maxCapturePoint = 10f;
     public float minCapturePoint = -10f;
 
-    int generation = 1;
-    Drone[] crossOrder;
-    Drone tempGO;
+    World.DroneAttributes[] droneAttributes; // contains best drone parents to crossover attributes
+    World.DroneAttributes tempDroneAtt; // used for shuffling droneAttributes array order
+    SpriteRenderer sprite; // used to change color
 
-    World.DroneAttributes[] droneAttributes;
-    World.DroneAttributes tempDroneAtt;
-
-    SpriteRenderer sprite;
-
-    static int faction1Num = 1;
-    static int faction2Num = 2;
-
+    static readonly int FACTION1NUM = 1;
+    static readonly int FACTION2NUM = 2;
 
     private void Start()
     {
@@ -57,13 +51,14 @@ public class GeneticAlgorithm : MonoBehaviour
         CapturePoints();
     }
 
-
+    /**
+     * Sets the states of territories whether its uncaptured, or owned by faction 1 or 2.
+     */
     private void CapturePoints()
     {
-        // IF CAPTURE POINT IS 25 AND TERRITORY IS NOT OWN FACTION
+        // If/else if - Territory is already captured and overturned by either faction
         if (capturePoint >= maxCapturePoint && territoryState != TerritoryState.FACTION1 && territoryState != TerritoryState.UNCAPTURED)
         {
-            // CAPTURE THE TERRITORY
             sprite.color = new Color(1, 0, 0, 1);
             capturePoint = maxCapturePoint;
             territoryState = TerritoryState.FACTION1;
@@ -80,10 +75,10 @@ public class GeneticAlgorithm : MonoBehaviour
             world.ownedTerritory1--;
         }
 
-        // UNCAPTURED TERRITORY
+        // When a territory is uncaptured and the capture point reaches a certain number
+        // The territory is given to the faction
         else if (territoryState == TerritoryState.UNCAPTURED)
         {
-            //sprite.color = new Color(0, 1, 0, 1);
             if (capturePoint >= maxCapturePoint)
             {
                 capturePoint = maxCapturePoint;
@@ -98,9 +93,11 @@ public class GeneticAlgorithm : MonoBehaviour
             }
         }
 
+        // When a territory is captured 
+        // The owning faction spawns their drones
+        // Initializes starting population, then uses the application of GA to modify drone attributes
         if (territoryState != TerritoryState.UNCAPTURED)
         {
-            //Debug.Log("Inside captured");
             if (territoryState == TerritoryState.FACTION1)
             {
                 sprite.color = new Color(1, 0, 0, 1);
@@ -110,24 +107,23 @@ public class GeneticAlgorithm : MonoBehaviour
                     if (timeLeft1 < 0)
                     {
                         //Fitness/Selection
-                        //ParentSelection("Drone1");
-                        TestParentSelection("Drone1");
-
-                        if (faction1Mom == null || faction1Dad == null)
+                        ParentSelection("Drone1");
+                        // Initial population
+                        if (world.Faction1FirstParent.fitnessScore == 0 || world.Faction1SecondParent.fitnessScore == 0 || world.numInitDrones1 < 5)
                         {
                             InitializeRandomAttributes(dronePrefab);
                             Faction1 droneObj = Instantiate(dronePrefab, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            droneObj.name = "Faction1 Parent " + world.numInitDrones1;
                             world.numPopulation1++;
+                            world.numInitDrones1++;
                         }
-                        else if (faction1Mom != null && faction1Dad != null)
+                        // Applies Genetic Algorithm to create new drones
+                        else if (world.Faction1FirstParent.fitnessScore != 0 && world.Faction1SecondParent.fitnessScore != 0 && world.numInitDrones1 >= 5)
                         {
-                            //Genetic Algorithm
-                            //Crossover(dronePrefab, faction1Num);
-                            TestCrossover(dronePrefab, faction1Num);
+                            Crossover(dronePrefab, FACTION1NUM);
                             Mutation(dronePrefab);
-                            Debug.Log("top fitness: " + world.Faction1FirstParent.fitnessScore);
                             Faction1 droneObj = Instantiate(dronePrefab, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
-                            droneObj.name = "Faction1 Gen " + world.generation++;
+                            droneObj.name = "Faction1 Gen " + world.generation1++;
                             world.numPopulation1++;
                         }
                         timeLeft1 = 2f;
@@ -144,36 +140,28 @@ public class GeneticAlgorithm : MonoBehaviour
                     if (timeLeft2 < 0)
                     {
                         //Fitness/Selection
-                        TestParentSelection("Drone2");
+                        ParentSelection("Drone2");
 
-                        if (faction2Mom == null || faction2Dad == null)
+                        if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < 5)
                         {
                             InitializeRandomAttributes(dronePrefab2);
                             Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            droneObj.name = "Faction2 Parent " + world.numInitDrones2;
                             world.numPopulation2++;
+                            world.numInitDrones2++;
                         }
-                        else if (faction2Mom != null && faction2Dad != null)
+                        else if (faction2Mom != null && faction2Dad != null && world.numInitDrones2 >= 5)
                         {
                             //Genetic Algorithm
-                            TestCrossover(dronePrefab2, faction2Num);
+                            Crossover(dronePrefab2, FACTION2NUM);
                             Mutation(dronePrefab2);
 
                             Faction2 droneObj2 = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
-                            droneObj2.name = "Faction2Child";
+                            droneObj2.name = "Faction2 Gen " + world.generation2++;
                             world.numPopulation2++;
                         }
                         timeLeft2 = 2f;
                     }
-                    /*
-                    timeLeft2 -= Time.deltaTime;
-                    if (timeLeft2 <= 0)
-                    {
-                        InitializeRandomAttributes(dronePrefab2);
-                        Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
-                        world.numPopulation2++;
-                        timeLeft2 = 2f;
-                    }
-                    */
                 }
             }
         }
@@ -185,24 +173,7 @@ public class GeneticAlgorithm : MonoBehaviour
     private void Crossover(Drone droneObj, int factionNum)
     {
         //Shuffles what parent will pass down their attribute
-        Shuffle(factionNum);
-        droneObj.wander = crossOrder[0].wander;
-        droneObj.seek = crossOrder[1].seek;
-        droneObj.arrive = crossOrder[2].arrive;
-        droneObj.flee = crossOrder[3].flee;
-        droneObj.flock = crossOrder[4].flock;
-        droneObj.maxHealth = crossOrder[5].maxHealth;
-        droneObj.health = droneObj.maxHealth;
-        droneObj.attack = crossOrder[6].attack;
-        droneObj.speed = crossOrder[7].speed;
-        droneObj.capture = crossOrder[8].capture;
-        droneObj.visionRange = crossOrder[9].visionRange;
-    }
-
-    private void TestCrossover(Drone droneObj, int factionNum)
-    {
-        //Shuffles what parent will pass down their attribute
-        TestShuffle(factionNum);
+        ShuffleParents(factionNum);
         droneObj.wander = droneAttributes[0].wander;
         droneObj.seek = droneAttributes[1].seek;
         droneObj.arrive = droneAttributes[2].arrive;
@@ -224,8 +195,7 @@ public class GeneticAlgorithm : MonoBehaviour
     {
         int rdmAttrPos = Random.Range(0, 9);
         float rdmBehavior = Random.Range(-3f, 3f);
-        float rdmStat = Random.Range(-1f, 1f);
-        float rdmHealth = Random.Range(0f, 10f);
+        
         switch (rdmAttrPos)
         {
             case 0:
@@ -244,20 +214,24 @@ public class GeneticAlgorithm : MonoBehaviour
                 dronePrefab.flock += rdmBehavior;
                 break;
             case 5:
+                dronePrefab.capture += rdmBehavior;
+                break;
+            case 6:
+                float rdmHealth = Random.Range(0f, 10f);
                 dronePrefab.maxHealth += rdmHealth;
                 dronePrefab.health += dronePrefab.maxHealth;
                 break;
-            case 6:
-                dronePrefab.attack += rdmStat;
-                break;
             case 7:
-                dronePrefab.speed += rdmStat;
+                float rdmAttack = Random.Range(0f, 1f);
+                dronePrefab.attack += rdmAttack;
                 break;
             case 8:
-                dronePrefab.capture += rdmStat;
+                float rdmSpeed = Random.Range(0f, 0.2f);
+                dronePrefab.speed += rdmSpeed;
                 break;
             case 9:
-                dronePrefab.visionRange += rdmStat;
+                float rdmVision = Random.Range(0f, 0.2f);
+                dronePrefab.visionRange += rdmVision;
                 break;
         }
     }
@@ -265,37 +239,15 @@ public class GeneticAlgorithm : MonoBehaviour
     /**
      * Crossover uses this method to shuffle the order of parents to pass down their type of attributes
      */
-    private void Shuffle(int factionNum)
+    private void ShuffleParents(int factionNum)
     {
         //Picks between faction 1 or 2
-        if (factionNum == faction1Num)
-        {
-            crossOrder = new Drone[] { faction1Mom, faction1Mom, faction1Mom, faction1Mom, faction1Mom, 
-                                       faction1Dad, faction1Dad, faction1Dad, faction1Dad, faction1Dad };
-        } 
-        else if (factionNum == faction2Num)
-        {
-            crossOrder = new Drone[] { faction2Mom, faction2Mom, faction2Mom, faction2Mom, faction2Mom, 
-                                       faction2Dad, faction2Dad, faction2Dad, faction2Dad, faction2Dad };
-        }
-        //Shuffles content of crossOrder
-        for (int i = 0; i < crossOrder.Length; i++)
-        {
-            int rnd = Random.Range(0, crossOrder.Length);
-            tempGO = crossOrder[rnd];
-            crossOrder[rnd] = crossOrder[i];
-            crossOrder[i] = tempGO;
-        }
-    }
-    private void TestShuffle(int factionNum)
-    {
-        //Picks between faction 1 or 2
-        if (factionNum == faction1Num)
+        if (factionNum == FACTION1NUM)
         {
             droneAttributes = new World.DroneAttributes[] { world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent,
                                                             world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent };
         }
-        else if (factionNum == faction2Num)
+        else if (factionNum == FACTION2NUM)
         {
             droneAttributes = new World.DroneAttributes[] { world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent,
                                                             world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent };
@@ -309,7 +261,7 @@ public class GeneticAlgorithm : MonoBehaviour
             droneAttributes[i] = tempDroneAtt;
         }
     }
-
+    /*
     // Set top 2 parent drones
     private void ParentSelection(string droneTag)
     {
@@ -342,8 +294,13 @@ public class GeneticAlgorithm : MonoBehaviour
         }
         //Debug.Log("====================================");
     }
+    */
 
-    private void TestParentSelection(string droneTag)
+    /**
+     * Selects the best drones as parents
+     * Saves top 2 drones attributes to world
+     */
+    private void ParentSelection(string droneTag)
     {
         List<GameObject> bestDrones = new List<GameObject>();
         GameObject[] droneObjects;
@@ -417,6 +374,9 @@ public class GeneticAlgorithm : MonoBehaviour
         }
     }
 
+    /**
+     * Saves/Sets the attributes of the best drones
+     */
     private World.DroneAttributes SetAttributes(Drone drone)
     {
         World.DroneAttributes factionParent;
@@ -436,31 +396,13 @@ public class GeneticAlgorithm : MonoBehaviour
         return factionParent;
     }
 
-    public void InsertAttributes(World.DroneAttributes droneAttributes, Drone drone)
-    {
-        droneAttributes.wander = drone.wander;
-        droneAttributes.seek = drone.seek;
-        droneAttributes.arrive = drone.arrive;
-        droneAttributes.flee = drone.flee;
-        droneAttributes.flock = drone.flock;
-
-        droneAttributes.health = drone.health;
-        droneAttributes.maxHealth = drone.maxHealth;
-        droneAttributes.attack = drone.attack;
-        droneAttributes.speed = drone.speed;
-        droneAttributes.capture = drone.capture;
-        droneAttributes.visionRange = drone.visionRange;
-        droneAttributes.fitnessScore = drone.fitnessScore;
-
-    }
-
     /**
      * Initializes random attributes for drones when there are no parents drones yet
-     * Wander, seek, arrive, flee, flock attributes will total a sum of 100
      */
     private void InitializeRandomAttributes(Drone droneObj)
     {
         //float[] attributes = { Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)};
+        /* SUM of 100
         float[] att = new float[6];
         att[0] = Random.Range(0f, 1f); // Wander
         att[1] = Random.Range(0f, 1f); // Seek
@@ -481,11 +423,19 @@ public class GeneticAlgorithm : MonoBehaviour
         droneObj.flee = (att[3] / sum) * 100f;
         droneObj.flock = (att[4] / sum) * 100f;
         droneObj.capture = (att[5] / sum) * 100f;
+        */
+
+        droneObj.wander = Random.Range(30f, 40f);
+        droneObj.seek = Random.Range(30f, 40f);
+        droneObj.arrive = Random.Range(30f, 40f);
+        droneObj.flee = Random.Range(30f, 40f);
+        droneObj.flock = Random.Range(30f, 40f);
+        droneObj.capture = Random.Range(30f, 40f);
 
         droneObj.maxHealth = Random.Range(30f, 40f);    // Healthh
         droneObj.health = droneObj.maxHealth;
-        droneObj.attack = Random.Range(5f, 10f);     // Attack
-        droneObj.speed = Random.Range(3f, 5f);       // Speed
+        droneObj.attack = Random.Range(5f, 8f);     // Attack
+        droneObj.speed = Random.Range(3.5f, 4f);       // Speed
         droneObj.visionRange = Random.Range(4f, 6f); // Vision Range
 
     }
