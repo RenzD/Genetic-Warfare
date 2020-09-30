@@ -196,6 +196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3004667264445904134}
+  - component: {fileID: -4008459134947332096}
   - component: {fileID: 3004667264445904129}
   - component: {fileID: 3004667264445904128}
   - component: {fileID: 3004667264445904131}
@@ -203,7 +204,6 @@ GameObject:
   - component: {fileID: 3004667264445904381}
   - component: {fileID: 3004667264445904382}
   - component: {fileID: 3004667264445904135}
-  - component: {fileID: -4008459134947332096}
   m_Layer: 0
   m_Name: Drone1
   m_TagString: Drone1
@@ -230,6 +230,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &-4008459134947332096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3004667264445904377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56bf289fc7ab3024cbf92f6598a92a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviorState: 0
+  drone: {fileID: -4008459134947332096}
+  target: {fileID: 0}
+  resourceObject: {fileID: 0}
+  healthObject: {fileID: 0}
+  territoryObject: {fileID: 0}
+  faction1: {fileID: 0}
+  faction2: {fileID: 0}
+  cohesionWeight: 1.5
+  separationWeight: 2
+  velocityMatchWeight: 1
+  arriveSize: 0
+  wander: 13.732701
+  seek: 13.911404
+  arrive: 39.673927
+  flee: 4.967362
+  flock: 15.347626
+  health: 36.03865
+  attack: 7.2118607
+  speed: 3.3125434
+  maxHealth: 25.237938
+  capture: 12.366984
+  visionRange: 5.2384777
+  fitnessScore: 0
+  slider: {fileID: 509368693988524771}
+  worldObject: {fileID: 0}
+  world: {fileID: 0}
 --- !u!212 &3004667264445904129
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -411,45 +450,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 567
---- !u!114 &-4008459134947332096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3004667264445904377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56bf289fc7ab3024cbf92f6598a92a03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviorState: 0
-  drone: {fileID: -4008459134947332096}
-  target: {fileID: 0}
-  resourceObject: {fileID: 0}
-  healthObject: {fileID: 0}
-  territoryObject: {fileID: 0}
-  faction1: {fileID: 0}
-  faction2: {fileID: 0}
-  cohesionWeight: 1.5
-  separationWeight: 2
-  velocityMatchWeight: 1
-  arriveSize: 0
-  wander: 13.732701
-  seek: 13.911404
-  arrive: 39.673927
-  flee: 4.967362
-  flock: 15.347626
-  health: 36.03865
-  attack: 7.2118607
-  speed: 3.3125434
-  maxHealth: 25.237938
-  capture: 12.366984
-  visionRange: 5.2384777
-  fitnessScore: 0
-  slider: {fileID: 509368693988524771}
-  worldObject: {fileID: 0}
-  world: {fileID: 0}
 --- !u!1 &3004667264758977564
 GameObject:
   m_ObjectHideFlags: 0

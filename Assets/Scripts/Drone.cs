@@ -69,10 +69,8 @@ public abstract class Drone : MonoBehaviour
     protected virtual void Start()
     {
         vision = transform.Find("Vision").GetComponent<Vision>();
-        maxHealth = health;
         fitnessScore = 0f;
         GetBehaviorPriority();
-
         //shoot = GetComponent<Shooting>();
     }
 

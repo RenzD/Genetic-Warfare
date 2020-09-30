@@ -25,16 +25,15 @@ public class Faction1 : Drone
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
         SetHealth();
-
         if (health < 0)
         {
             Destroy(gameObject);
             try
             {
                 world.numPopulation1--;
-            } catch
+            }
+            catch
             {
                 Debug.Log("Hello:");
             }
