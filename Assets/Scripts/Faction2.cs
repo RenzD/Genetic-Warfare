@@ -18,6 +18,7 @@ public class Faction2 : Drone
         steeringBasics = GetComponent<Steering>();
         steeringBasics.maxVelocity = speed;
         steering = GetComponent<SteeringBehaviors>();
+        steering.panicDist = visionRange + 0.2f;
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
@@ -290,7 +291,6 @@ public class Faction2 : Drone
         Vector3 accel = steeringBasics.SeekEnemy(faction1.transform.position);
         if (accel == Vector3.zero)
         {
-
             attacktimer += Time.deltaTime;
             if (attacktimer > 0.8f)
             {
@@ -322,6 +322,13 @@ public class Faction2 : Drone
         {
             resourceObject.resourceHealth -= Time.deltaTime;
             drone.HealthRegen();
+            lineRenderer.SetPosition(0, firePoint.position);
+            lineRenderer.SetPosition(1, resourceObject.transform.position);
+            lineRenderer.enabled = true; ;
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
         return accel;
     }
@@ -332,8 +339,14 @@ public class Faction2 : Drone
         if (accel == Vector3.zero)
         {
             territoryObject.capturePoint -= Time.deltaTime;
+            lineRenderer.SetPosition(0, firePoint.position);
+            lineRenderer.SetPosition(1, territoryObject.transform.position);
+            lineRenderer.enabled = true; ;
         }
-
+        else
+        {
+            lineRenderer.enabled = false;
+        }
         return accel;
     }
 }

@@ -64,6 +64,7 @@ public abstract class Drone : MonoBehaviour
     public float fitnessScore;
 
     [Header("Other")]
+    public AvoidSensor colAvoidSensor;
     public Slider slider;
     public GameObject impactEffect;
     public GameObject deathEffect;
@@ -71,9 +72,11 @@ public abstract class Drone : MonoBehaviour
     public Transform firePoint;
     public float attacktimer;
     public float linetimer;
+    public float miningtimer;
 
     protected virtual void Start()
     {
+        colAvoidSensor = transform.Find("ColAvoidSensor").GetComponent<AvoidSensor>();
         vision = transform.Find("Vision").GetComponent<Vision>();
         vision.GetComponent<CircleCollider2D>().radius = visionRange;
         fitnessScore = 0f;
@@ -165,7 +168,7 @@ public abstract class Drone : MonoBehaviour
 
     public virtual void Clear()
     {
-        if (behaviorState != BehaviorState.SEEK)
+        if (behaviorState == BehaviorState.WANDER || behaviorState == BehaviorState.FLEE || behaviorState == BehaviorState.FLOCK)
         {
             lineRenderer.enabled = false;
             attacktimer = 0f;

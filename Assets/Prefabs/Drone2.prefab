@@ -1,5 +1,75 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &126651234590953083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8857188752824071536}
+  - component: {fileID: 5099038162880326084}
+  - component: {fileID: 6384980918076534342}
+  m_Layer: 0
+  m_Name: ColAvoidSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8857188752824071536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126651234590953083}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 8.4, y: 2.5499997, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6427434857472534348}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5099038162880326084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126651234590953083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2aa17585bc8fe409b85fa4f20edce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &6384980918076534342
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126651234590953083}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.35, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &683541721065294209
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +98,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6427434857472534348}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4229318715903116704
 GameObject:
@@ -59,7 +129,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6427434857472534348}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &6693501806968269399
 LineRenderer:
@@ -97,8 +167,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2007972415
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -168,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6946922293501936284}
   - component: {fileID: 494165594139469849}
-  - component: {fileID: 1239444910400976302}
+  - component: {fileID: 5368791243300717778}
   m_Layer: 8
   m_Name: Sensor
   m_TagString: Untagged
@@ -206,7 +276,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.2
---- !u!114 &1239444910400976302
+--- !u!114 &5368791243300717778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -390,6 +460,7 @@ Transform:
   m_Children:
   - {fileID: 6946922293501936284}
   - {fileID: 9166326382759589129}
+  - {fileID: 8857188752824071536}
   - {fileID: 848848382730135936}
   - {fileID: 6996358784018087412}
   - {fileID: 728391302936644930}
@@ -425,13 +496,14 @@ MonoBehaviour:
   arrive: 33.40261
   flee: 29.878788
   flock: 32.35617
-  health: 37.737774
+  capture: 36.508724
   attack: 7.339364
   speed: 4.2121735
-  maxHealth: 37.737774
-  capture: 36.508724
   visionRange: 4.792012
+  health: 37.737774
+  maxHealth: 37.737774
   fitnessScore: 0
+  colAvoidSensor: {fileID: 0}
   slider: {fileID: 5449713594015959532}
   impactEffect: {fileID: 1473625048454486, guid: 284f05ab582ef494a9ab1dd8bc1e76ae,
     type: 3}
@@ -441,6 +513,7 @@ MonoBehaviour:
   firePoint: {fileID: 848848382730135936}
   attacktimer: 0
   linetimer: 0
+  miningtimer: 0
   worldObject: {fileID: 0}
   world: {fileID: 0}
 --- !u!212 &6427434857472534349
@@ -621,6 +694,8 @@ MonoBehaviour:
   cohFacingCosine: 120
   sepMaxAcceleration: 25
   maxSepDist: 1
+  maxAccelColAvoid: 15
+  distanceBetween: 0
 --- !u!114 &148394617326287333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,7 +913,7 @@ RectTransform:
   m_Children:
   - {fileID: 5379595456788648783}
   m_Father: {fileID: 6427434857472534348}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

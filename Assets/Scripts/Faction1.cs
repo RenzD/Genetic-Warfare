@@ -21,6 +21,7 @@ public class Faction1 : Drone
 
 
         steering = GetComponent<SteeringBehaviors>();
+        steering.panicDist = visionRange + 0.2f;
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
@@ -178,7 +179,6 @@ public class Faction1 : Drone
             else if (faction1 != null && resourceObject != null && faction2 == null && territoryObject == null)
             {
                 behaviorState = BehaviorState.ARRIVE;
-
                 /*
                 if (dictionary[flock] > dictionary[arrive])
                 {
@@ -207,6 +207,34 @@ public class Faction1 : Drone
                     behaviorState = BehaviorState.ARRIVE;
                 }
             }
+            // -------------------------------------------------------------------------------------------------------
+            // ALlY AND TERRITORY
+            else if (faction1 != null && territoryObject != null && faction2 == null && resourceObject == null)
+            {
+                // Wander / Capture
+                if (dictionary[captureStr] > dictionary[wanderStr] && territoryObject.territoryState != GeneticAlgorithm.TerritoryState.FACTION1)
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                }
+                else
+                {
+                    behaviorState = BehaviorState.WANDER;
+                }
+            }
+
+            // RESOURCE AND TERRITORY - CAPTURE or HEAL(ARRIVE)
+            else if (resourceObject != null && territoryObject != null && faction1 == null && faction2 == null)
+            {
+                if (dictionary[captureStr] > dictionary[arriveStr])
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                }
+                else
+                {
+                    behaviorState = BehaviorState.ARRIVE;
+                }
+            }
+            // -------------------------------------------------------------------------------------------------------
             //ENEMY, ALLY, AND RESOURCE
             else if (faction1 != null && faction2 != null && resourceObject != null && territoryObject == null)
             {
@@ -235,14 +263,7 @@ public class Faction1 : Drone
             }
             else
             {
-                if (dictionary[wanderStr] > dictionary[flockStr])
-                {
-                    behaviorState = BehaviorState.WANDER;
-                }
-                else
-                {
-                    behaviorState = BehaviorState.FLOCK;
-                }
+               behaviorState = BehaviorState.WANDER;
             }
         }
         else
@@ -255,30 +276,33 @@ public class Faction1 : Drone
     protected override void DroneBehavior()
     {
         // Select Behavior
-        Vector3 accel = Vector3.zero;
-        switch (behaviorState)
+        Vector3 accel = steering.GetSteeringColAvoid(colAvoidSensor.targets);
+        if (accel.magnitude < .005f)
         {
-            case BehaviorState.WANDER:
-                accel = steering.GetSteeringWander();
-                break;
-            case BehaviorState.SEEK:
-                accel = SeekEnemy();
-                break;
-            case BehaviorState.ARRIVE:
-                accel = Arrive();
-                break;
-            case BehaviorState.FLEE:
-                accel = steering.GetSteeringFlee(faction2.transform.position);
-                break;
-            case BehaviorState.FLOCK:
-                accel = steering.Flock(accel);
-                break;
-            case BehaviorState.CAPTURE:
-                accel = Capture();
-                break;
-            default:
-                Debug.Log("Unknown State");
-                break;
+            switch (behaviorState)
+            {
+                case BehaviorState.WANDER:
+                    accel = steering.GetSteeringWander();
+                    break;
+                case BehaviorState.SEEK:
+                    accel = SeekEnemy();
+                    break;
+                case BehaviorState.ARRIVE:
+                    accel = Arrive();
+                    break;
+                case BehaviorState.FLEE:
+                    accel = steering.GetSteeringFlee(faction2.transform.position);
+                    break;
+                case BehaviorState.FLOCK:
+                    accel = steering.Flock(accel);
+                    break;
+                case BehaviorState.CAPTURE:
+                    accel = Capture();
+                    break;
+                default:
+                    Debug.Log("Unknown State");
+                    break;
+            }
         }
         //Clears line renderer and resets attack
         Clear();
@@ -292,7 +316,6 @@ public class Faction1 : Drone
         Vector3 accel = steeringBasics.SeekEnemy(faction2.transform.position);
         if (accel == Vector3.zero)
         {
-            
             attacktimer += Time.deltaTime;
             if (attacktimer > 0.8f)
             {
@@ -323,6 +346,13 @@ public class Faction1 : Drone
         {
             resourceObject.resourceHealth -= Time.deltaTime;
             drone.HealthRegen();
+            lineRenderer.SetPosition(0, firePoint.position);
+            lineRenderer.SetPosition(1, resourceObject.transform.position);
+            lineRenderer.enabled = true; ;
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
         return accel;
     }
@@ -333,8 +363,14 @@ public class Faction1 : Drone
         if (accel == Vector3.zero)
         {
             territoryObject.capturePoint += Time.deltaTime;
+            lineRenderer.SetPosition(0, firePoint.position);
+            lineRenderer.SetPosition(1, territoryObject.transform.position);
+            lineRenderer.enabled = true; ;
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
         return accel;
     }
-
 }

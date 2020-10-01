@@ -145,7 +145,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < 5)
                         {
                             InitializeRandomAttributes(dronePrefab2);
-                            Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
                             droneObj.name = "Faction2 Parent " + world.numInitDrones2;
                             world.numPopulation2++;
                             world.numInitDrones2++;
