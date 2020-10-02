@@ -12,13 +12,16 @@ public class Faction2 : Drone
     [Header("World")]
     public GameObject worldObject;
     public World world;
+
     protected override void Start()
     {
         base.Start();
         steeringBasics = GetComponent<Steering>();
         steeringBasics.maxVelocity = speed;
+
         steering = GetComponent<SteeringBehaviors>();
-        steering.panicDist = visionRange + 0.2f;
+        steering.panicDist = visionRange + .5f;
+
         worldObject = GameObject.FindWithTag("World");
         world = worldObject.GetComponent<World>();
     }
@@ -90,18 +93,12 @@ public class Faction2 : Drone
         if (dictionary.Count != 0)
         {
             // NONE
-            if (faction2 == null && faction1 == null && resourceObject == null && territoryObject == null)
+            if (faction1 == null && faction2 == null && resourceObject == null && territoryObject == null)
             {
-                if (dictionary[wanderStr] > dictionary[flockStr])
-                {
-                    behaviorState = BehaviorState.WANDER;
-                }
-                else
-                {
-                    behaviorState = BehaviorState.FLOCK;
-                }
+                behaviorState = BehaviorState.WANDER;
             }
             // ALLY ONLY
+            // Picks the higher behavior priority between wander and flock
             else if (faction2 != null && faction1 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[wanderStr] > dictionary[flockStr])
@@ -114,6 +111,7 @@ public class Faction2 : Drone
                 }
             }
             // ENEMY ONLY
+            // Picks the higher behavior priority between seek and flock
             else if (faction1 != null && faction2 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[seekStr] > dictionary[fleeStr])
@@ -126,12 +124,14 @@ public class Faction2 : Drone
                 }
             }
             // RESOURCE ONLY
-            else if (resourceObject != null && faction2 == null && faction1 == null && territoryObject == null)
+            // If the drone is hungry, then arrive at resource
+            else if (resourceObject != null && faction1 == null && faction2 == null && territoryObject == null && hungryBool)
             {
                 behaviorState = BehaviorState.ARRIVE;
             }
             // TERRITORY ONLY
-            else if (territoryObject != null && resourceObject == null && faction2 == null && faction1 == null)
+            // If the territory is not its own faction, then capture, else wander
+            else if (territoryObject != null && resourceObject == null && faction1 == null && faction2 == null)
             {
                 if (territoryObject.territoryState == GeneticAlgorithm.TerritoryState.FACTION1 ||
                     territoryObject.territoryState == GeneticAlgorithm.TerritoryState.UNCAPTURED)
@@ -144,21 +144,52 @@ public class Faction2 : Drone
                 }
             }
             // TERRITORY AND ENEMY
+            // If the territory is not owned by its own faction, then pick behavior priority between capture, seek and flee, 
+            // Else, seek or flee
             else if (territoryObject != null && faction1 != null && resourceObject == null && faction2 == null)
             {
-                if (dictionary[captureStr] > dictionary[fleeStr])
+                if (territoryObject.territoryState == GeneticAlgorithm.TerritoryState.FACTION2)
                 {
-                    behaviorState = BehaviorState.CAPTURE;
+                    if (dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+                else
+                {
+                    if (dictionary[captureStr] > dictionary[seekStr] && dictionary[captureStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.CAPTURE;
+                    }
+                    else if (dictionary[seekStr] > dictionary[captureStr] && dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else if (dictionary[fleeStr] > dictionary[captureStr] && dictionary[fleeStr] > dictionary[seekStr])
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+            }
+
+            // ALLY AND ENEMY
+            // Picks the behavior priority between seek, flee    ** no flock **
+            else if (faction2 != null && faction1 != null && resourceObject == null && territoryObject == null)
+            {
+                if (dictionary[seekStr] > dictionary[fleeStr])
+                {
+                    behaviorState = BehaviorState.SEEK;
                 }
                 else
                 {
                     behaviorState = BehaviorState.FLEE;
                 }
-            }
 
-            // ALLY AND ENEMY
-            else if (faction2 != null && faction1 != null && resourceObject == null && territoryObject == null)
-            {
+                /* ** with flock **
                 if (dictionary[seekStr] > dictionary[fleeStr] && dictionary[seekStr] > dictionary[flockStr])
                 {
                     behaviorState = BehaviorState.SEEK;
@@ -171,26 +202,69 @@ public class Faction2 : Drone
                 {
                     behaviorState = BehaviorState.FLOCK;
                 }
+                */
             }
 
             // ALLY AND RESOURCE
+            // If hungry, then arrive at resource
+            // Else pick priority between flock and wander
             else if (faction2 != null && resourceObject != null && faction1 == null && territoryObject == null)
             {
-                behaviorState = BehaviorState.ARRIVE;
-
-                /*
-                if (dictionary[flock] > dictionary[arrive])
+                if (hungryBool)
+                {
+                    behaviorState = BehaviorState.ARRIVE;
+                }
+                else if (dictionary[flockStr] > dictionary[wanderStr])
                 {
                     behaviorState = BehaviorState.FLOCK;
                 }
                 else
                 {
-                    behaviorState = BehaviorState.ARRIVE;
+                    behaviorState = BehaviorState.WANDER;
                 }
-                */
             }
 
-            // ENEMY AND RESOURCE
+            // ALLY AND TERRITORY
+            // If its not owned by its own faction, then capture, else wander
+            else if (faction2 != null && territoryObject != null && faction1 == null && resourceObject == null)
+            {
+                if (territoryObject.territoryState != GeneticAlgorithm.TerritoryState.FACTION2)
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                }
+                else
+                {
+                    behaviorState = BehaviorState.WANDER;
+                }
+            }
+
+            // RESOURCE AND TERRITORY - capture, arrive
+            // Check if hungry and priority over arrive and capture behaviors, also check if territory owned by faction
+            else if (resourceObject != null && territoryObject != null && faction1 == null && faction2 == null)
+            {
+                if (dictionary[arriveStr] > dictionary[captureStr] && hungryBool)
+                {
+                    behaviorState = BehaviorState.ARRIVE;
+                }
+                else if (territoryObject.territoryState != GeneticAlgorithm.TerritoryState.FACTION2)
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                }
+                else
+                {
+                    if (hungryBool)
+                    {
+                        behaviorState = BehaviorState.ARRIVE;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.WANDER;
+                    }
+                }
+            }
+
+            // ENEMY AND RESOURCE - seek, flee, arrive, wander
+            // Picks behavior priority between seek, flee, arrive, wander
             else if (faction1 != null && resourceObject != null && faction2 == null && territoryObject == null)
             {
                 if (dictionary[seekStr] > dictionary[arriveStr] && dictionary[seekStr] > dictionary[fleeStr])
@@ -201,62 +275,170 @@ public class Faction2 : Drone
                 {
                     behaviorState = BehaviorState.FLEE;
                 }
-                else if (dictionary[arriveStr] > dictionary[seekStr] && dictionary[arriveStr] > dictionary[fleeStr])
+                else if (hungryBool)
                 {
                     behaviorState = BehaviorState.ARRIVE;
                 }
+                // If arrive is highest priority, but not hungry choose between seek and flee only
+                else
+                {
+                    if (dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+
             }
-            //ENEMY, ALLY, AND RESOURCE
-            else if (faction2 != null && faction1 != null && resourceObject != null && territoryObject == null)
+
+            //ALLY, ENEMY AND RESOURCE - seek, arrive, flee, flock, wander
+            // Check priority of seek, flee, arrive
+            else if (faction1 != null && faction2 != null && resourceObject != null && territoryObject == null)
             {
-                //SEEK, ARRIVE, FLEE, FLOCK
-                //Seek enemy
-                if (dictionary[seekStr] >= dictionary[arriveStr] && dictionary[seekStr] >= dictionary[fleeStr]
-                                                            && dictionary[seekStr] >= dictionary[flockStr])
+                if (dictionary[seekStr] > dictionary[arriveStr] && dictionary[seekStr] > dictionary[fleeStr])
                 {
                     behaviorState = BehaviorState.SEEK;
                 }
-                //Get resource
-                else if (dictionary[arriveStr] >= dictionary[seekStr] && dictionary[arriveStr] >= dictionary[fleeStr]
-                                                            && dictionary[arriveStr] >= dictionary[flockStr])
-                {
-                    behaviorState = BehaviorState.ARRIVE;
-                }
-                // Flee from enemy
-                else if (dictionary[fleeStr] >= dictionary[seekStr] && dictionary[fleeStr] >= dictionary[arriveStr]
-                                                            && dictionary[fleeStr] >= dictionary[flockStr])
+                else if (dictionary[fleeStr] > dictionary[seekStr] && dictionary[fleeStr] > dictionary[arriveStr])
                 {
                     behaviorState = BehaviorState.FLEE;
                 }
-                // Flock
-                else if (dictionary[flockStr] >= dictionary[seekStr] && dictionary[flockStr] >= dictionary[arriveStr]
-                                                            && dictionary[flockStr] >= dictionary[fleeStr])
+                else if (hungryBool)
                 {
-                    behaviorState = BehaviorState.FLOCK;
+                    behaviorState = BehaviorState.ARRIVE;
+                }
+                // If arrive is highest priority, but not hungry choose between seek and flee only
+                else
+                {
+                    if (dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+            }
+            // ALLY, RESOURCE, TERRITORY
+            // Check if territory is owned by faction
+            // Check if hungry
+            else if (faction2 != null && resourceObject != null && territoryObject != null && faction1 == null)
+            {
+                if (dictionary[arriveStr] > dictionary[captureStr] && hungryBool)
+                {
+                    behaviorState = BehaviorState.ARRIVE;
+                }
+                else if (territoryObject.territoryState != GeneticAlgorithm.TerritoryState.FACTION2)
+                {
+                    behaviorState = BehaviorState.CAPTURE;
+                }
+                else
+                {
+                    if (hungryBool)
+                    {
+                        behaviorState = BehaviorState.ARRIVE;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.WANDER;
+                    }
+                }
+            }
+            // ALLY, ENEMY, TERRITORY
+            // If the territory is not owned by its own faction, then pick behavior priority between capture, seek and flee, 
+            // Else, seek or flee
+            else if (faction2 != null && faction1 != null && territoryObject != null && resourceObject == null)
+            {
+                if (territoryObject.territoryState == GeneticAlgorithm.TerritoryState.FACTION2)
+                {
+                    if (dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+                else
+                {
+                    if (dictionary[captureStr] > dictionary[seekStr] && dictionary[captureStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.CAPTURE;
+                    }
+                    else if (dictionary[seekStr] > dictionary[captureStr] && dictionary[seekStr] > dictionary[fleeStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else if (dictionary[fleeStr] > dictionary[captureStr] && dictionary[fleeStr] > dictionary[seekStr])
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                }
+            }
+            // ENEMY RESOURCE TERRITORY
+            else if (faction1 != null && territoryObject != null && resourceObject != null && faction2 == null)
+            {
+                if (dictionary[seekStr] > dictionary[arriveStr] &&
+                    dictionary[seekStr] > dictionary[fleeStr] &&
+                    dictionary[seekStr] > dictionary[captureStr])
+                {
+                    behaviorState = BehaviorState.SEEK;
+                }
+                else if (dictionary[fleeStr] > dictionary[seekStr] &&
+                        dictionary[fleeStr] > dictionary[arriveStr] &&
+                        dictionary[fleeStr] > dictionary[captureStr])
+                {
+                    behaviorState = BehaviorState.FLEE;
+                }
+                else if (dictionary[captureStr] > dictionary[seekStr] &&
+                         dictionary[captureStr] > dictionary[fleeStr] &&
+                         dictionary[captureStr] > dictionary[arriveStr])
+                {
+                    behaviorState = BehaviorState.FLEE;
+                }
+                else
+                {
+                    // Arrive is highest
+                    if (hungryBool)
+                    {
+                        behaviorState = BehaviorState.ARRIVE;
+                    }
+                    // Not hungry, so pick the other 3
+                    else if (dictionary[seekStr] > dictionary[fleeStr] &&
+                            dictionary[seekStr] > dictionary[captureStr])
+                    {
+                        behaviorState = BehaviorState.SEEK;
+                    }
+                    else if (dictionary[fleeStr] > dictionary[seekStr] &&
+                            dictionary[fleeStr] > dictionary[captureStr])
+                    {
+                        behaviorState = BehaviorState.FLEE;
+                    }
+                    else
+                    {
+                        behaviorState = BehaviorState.CAPTURE;
+                    }
                 }
             }
             else
             {
-                if (dictionary[wanderStr] > dictionary[flockStr])
-                {
-                    behaviorState = BehaviorState.WANDER;
-                }
-                else
-                {
-                    behaviorState = BehaviorState.FLOCK;
-                }
+                behaviorState = BehaviorState.WANDER;
             }
         }
         else
         {
             Debug.Log("List is empty");
         }
-
     }
 
     protected override void DroneBehavior()
     {
-        Vector3 accel = Vector3.zero;
+        Vector3 accel = steering.GetSteeringColAvoid(colAvoidSensor.targets);
         switch (behaviorState)
         {
             case BehaviorState.WANDER:
@@ -281,7 +463,9 @@ public class Faction2 : Drone
                 Debug.Log("Unknown State");
                 break;
         }
+        //Clears line renderer and resets attack
         Clear();
+        //Updates the velocity of the current game object by the given linear
         steeringBasics.Steer(accel);
         steeringBasics.LookWhereYoureGoing();
     }
@@ -289,7 +473,7 @@ public class Faction2 : Drone
     private Vector3 SeekEnemy()
     {
         Vector3 accel = steeringBasics.SeekEnemy(faction1.transform.position);
-        if (accel == Vector3.zero)
+        if (steeringBasics.GetDist(faction1.transform.position) < visionRange)
         {
             attacktimer += Time.deltaTime;
             if (attacktimer > 0.8f)
@@ -304,7 +488,7 @@ public class Faction2 : Drone
                 attacktimer = 0f;
                 lineRenderer.enabled = false;
                 Attack(faction1);
-                Instantiate(impactEffect, faction1.transform.position, Quaternion.identity);
+                Instantiate(impactEffect, faction1.transform.position, Quaternion.Euler(new Vector3(0f, 0f, Random.Range(0f, 360f))));
             }
         }
         else

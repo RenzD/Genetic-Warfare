@@ -8,6 +8,8 @@ ScriptsOnlyBuild:
     - UnityMovementAI.Wander1Unit
     Scripts.dll:
     - AIRigidbody
+    - AnimationAutoDestroy
+    - AvoidSensor
     - Bullet
     - Faction1
     - Faction2
@@ -32,21 +34,18 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - TestRunner.Callbacks.WindowResultUpdaterDataHolder
-    - UnityEditor.TestRunner.TestLaunchers.RemotePlayerLogController
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.CommandLineTest.RunData
-    - UnityEditor.TestTools.TestRunner.RerunCallbackData
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     - UnityEditor.TestTools.TestRunner.TestRunnerWindow
-    UnityEngine.TestRunner.dll:
-    - UnityEngine.TestRunner.Utils.TestRunCallbackListener
-    - UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
-    - UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
-    - UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
-    - UnityEngine.TestTools.TestRunner.PlaymodeTestsController
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -57,31 +56,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
-    Assets/InitTestScene637367632840702824.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 11366}
-    - Class: 114
-      Script: {instanceID: 12814}
-    - Class: 114
-      Script: {instanceID: 14220}
-    - Class: 114
-      Script: {instanceID: 14316}
-    - Class: 114
-      Script: {instanceID: 14334}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
     Assets/Scenes/Menu.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -100,21 +74,21 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11170}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11474}
+      Script: {instanceID: 11480}
     - Class: 114
-      Script: {instanceID: 11534}
+      Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 12220}
+      Script: {instanceID: 12228}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12484}
     - Class: 114
-      Script: {instanceID: 13728}
+      Script: {instanceID: 12948}
     - Class: 114
-      Script: {instanceID: 14372}
+      Script: {instanceID: 13740}
     - Class: 114
-      Script: {instanceID: 16446}
+      Script: {instanceID: 14384}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -150,58 +124,66 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
-    - Class: 108
-      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11170}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11220}
+      Script: {instanceID: 11224}
     - Class: 114
-      Script: {instanceID: 11268}
+      Script: {instanceID: 11272}
     - Class: 114
-      Script: {instanceID: 11314}
+      Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11388}
+      Script: {instanceID: 11320}
     - Class: 114
-      Script: {instanceID: 11478}
+      Script: {instanceID: 11394}
     - Class: 114
-      Script: {instanceID: 11534}
+      Script: {instanceID: 11484}
     - Class: 114
-      Script: {instanceID: 11642}
+      Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 11730}
+      Script: {instanceID: 11650}
     - Class: 114
-      Script: {instanceID: 12094}
+      Script: {instanceID: 11738}
     - Class: 114
-      Script: {instanceID: 12330}
+      Script: {instanceID: 12102}
     - Class: 114
-      Script: {instanceID: 12602}
+      Script: {instanceID: 12338}
     - Class: 114
-      Script: {instanceID: 12972}
+      Script: {instanceID: 12346}
     - Class: 114
-      Script: {instanceID: 13152}
+      Script: {instanceID: 12614}
     - Class: 114
-      Script: {instanceID: 13290}
+      Script: {instanceID: 12984}
     - Class: 114
-      Script: {instanceID: 13728}
+      Script: {instanceID: 13164}
     - Class: 114
-      Script: {instanceID: 13734}
+      Script: {instanceID: 13302}
     - Class: 114
-      Script: {instanceID: 13836}
+      Script: {instanceID: 13740}
     - Class: 114
-      Script: {instanceID: 13982}
+      Script: {instanceID: 13746}
     - Class: 114
-      Script: {instanceID: 14280}
+      Script: {instanceID: 13848}
     - Class: 114
-      Script: {instanceID: 14414}
+      Script: {instanceID: 13994}
     - Class: 114
-      Script: {instanceID: 14424}
+      Script: {instanceID: 14292}
     - Class: 114
-      Script: {instanceID: 14486}
+      Script: {instanceID: 14426}
+    - Class: 114
+      Script: {instanceID: 14436}
+    - Class: 114
+      Script: {instanceID: 14498}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -237,7 +219,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: b3ec23c3a6c739995d3d4ce90dce49c0
+      Hash: 1c875c08d63572aad9ae99c4f3988673
     assemblyName: Scripts.dll
     namespaceName: 
     className: GeneticAlgorithm
@@ -259,6 +241,12 @@ ScriptsOnlyBuild:
     assemblyName: Scripts.dll
     namespaceName: 
     className: Steering
+  - hash:
+      serializedVersion: 2
+      Hash: 20c9a74d659b6895cfdb5f4624ba8daa
+    assemblyName: Scripts.dll
+    namespaceName: 
+    className: AnimationAutoDestroy
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -315,7 +303,7 @@ ScriptsOnlyBuild:
     className: Text
   - hash:
       serializedVersion: 2
-      Hash: 0fb18bae7eab4fb54660b6ffa5e54db3
+      Hash: 608dfd84399814d6c91c29a68d869fb6
     assemblyName: Scripts.dll
     namespaceName: 
     className: World
@@ -387,7 +375,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: f2fe42b459f8f3f6395e22e9e6a3f286
+      Hash: 9689e3a9b7d6fd8f3f012dd9dd4fcea0
     assemblyName: Scripts.dll
     namespaceName: 
     className: SteeringBehaviors
@@ -592,6 +580,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Scripts.dll
+    namespaceName: 
+    className: AvoidSensor
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityMovementAI
     className: WanderAvoidUnit
@@ -601,6 +595,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityMovementAI
     className: Separation
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Scripts.dll
+    namespaceName: 
+    className: MainMenu
   - hash:
       serializedVersion: 2
       Hash: 7ef4f1dc2a02d5c1dea1ea6999a5648d
@@ -855,7 +855,7 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 7517226d2728f70fc04fc5dea009a47d
+      Hash: 48da70751d3567caaa8ab0e9d0427950
     assemblyName: Scripts.dll
     namespaceName: 
     className: Faction2
@@ -1047,7 +1047,7 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: 7517226d2728f70fc04fc5dea009a47d
+      Hash: 48da70751d3567caaa8ab0e9d0427950
     assemblyName: Scripts.dll
     namespaceName: 
     className: Faction1
@@ -1075,15 +1075,8 @@ ScriptsOnlyBuild:
     assemblyName: Scripts.dll
     namespaceName: 
     className: Resource
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Scripts.dll
-    namespaceName: 
-    className: MainMenu
   platform: 5
   scenePathNames:
-  - Assets/InitTestScene637367632840702824.unity
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Simulation.unity
-  playerPath: E:/unity-workspace/Genetic Warfare/Temp/UnityTempFile-9db1d42339026234da1c1eee7ed1ccd2/PlayerWithTests/PlayerWithTests.exe
+  playerPath: C:/Users/Renz/Desktop/Genetic Warfare.exe

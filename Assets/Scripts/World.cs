@@ -18,6 +18,7 @@ public class World : MonoBehaviour
         public float speed;
         public float capture;
         public float visionRange;
+        public float hungerMeter;
 
         public float fitnessScore;
     }

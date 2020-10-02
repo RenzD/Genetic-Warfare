@@ -26,7 +26,6 @@ public abstract class Drone : MonoBehaviour
     //Shooting shoot;
     public Transform target;
     public Resource resourceObject;
-    public HealthResource healthObject;
     public GeneticAlgorithm territoryObject;
     public Faction1 faction1;
     public Faction2 faction2;
@@ -61,7 +60,9 @@ public abstract class Drone : MonoBehaviour
     public float visionRange;
     public float health;
     public float maxHealth;
+    public float hungerMeter;
     public float fitnessScore;
+    public float healthNorm;
 
     [Header("Other")]
     public AvoidSensor colAvoidSensor;
@@ -73,6 +74,7 @@ public abstract class Drone : MonoBehaviour
     public float attacktimer;
     public float linetimer;
     public float miningtimer;
+    public bool hungryBool;
 
     protected virtual void Start()
     {
@@ -80,6 +82,7 @@ public abstract class Drone : MonoBehaviour
         vision = transform.Find("Vision").GetComponent<Vision>();
         vision.GetComponent<CircleCollider2D>().radius = visionRange;
         fitnessScore = 0f;
+        hungryBool = false;
         GetBehaviorPriority();
         //shoot = GetComponent<Shooting>();
     }
@@ -91,6 +94,21 @@ public abstract class Drone : MonoBehaviour
         GetVisionTargets();
         GetBehaviorPriority();
         DroneBehavior();
+        CheckHunger();
+    }
+
+    private void CheckHunger()
+    {
+        // If life is lower than hunger Meter, then hungrybool is true
+        if (healthNorm < hungerMeter)
+        {
+            hungryBool = true;
+        }
+        // if life is 100%, then false
+        if (healthNorm > .99f)
+        {
+            hungryBool = false;
+        }
     }
 
     private void TimeLived()
@@ -116,10 +134,6 @@ public abstract class Drone : MonoBehaviour
         {
             territoryObject = null;
         }
-        if (healthObject != null && !vision.targets.Contains(healthObject.gameObject))
-        {
-            healthObject = null;
-        }
 
         foreach (GameObject target in vision.targets)
         {
@@ -131,13 +145,6 @@ public abstract class Drone : MonoBehaviour
                     resourceObject = target.GetComponent<Resource>();
                 else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(resourceObject.transform.position, transform.position))
                     resourceObject = target.GetComponent<Resource>();
-            }
-            else if (target.GetComponent<HealthResource>())
-            {
-                if (healthObject == null)
-                    healthObject = target.GetComponent<HealthResource>();
-                else if (Vector3.Distance(target.transform.position, transform.position) < Vector3.Distance(healthObject.transform.position, transform.position))
-                    healthObject = target.GetComponent<HealthResource>();
             }
             else if (target.GetComponent<Faction1>())
             {
@@ -187,7 +194,7 @@ public abstract class Drone : MonoBehaviour
     {
         if (health < 0)
         {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Instantiate(deathEffect, transform.position, Quaternion.Euler(new Vector3(0f, 0f, Random.Range(0f, 360f))));
             Destroy(gameObject);
             numPopulation--;
         }
@@ -196,8 +203,8 @@ public abstract class Drone : MonoBehaviour
 
     public virtual void SetHealthSlider()
     {
-        float norm = (health - 0f) / (maxHealth - 0f);
-        slider.value = norm;
+        healthNorm = (health - 0f) / (maxHealth - 0f);
+        slider.value = healthNorm;
     }
 
     public virtual void Attack(Drone enemyDrone)
@@ -229,7 +236,7 @@ public abstract class Drone : MonoBehaviour
     {
         if (health < maxHealth)
         {
-            health += (Time.deltaTime * 4);
+            health += (Time.deltaTime * 6);
         }
     }
 }

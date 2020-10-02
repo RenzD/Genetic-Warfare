@@ -43,7 +43,7 @@ public class Vision : MonoBehaviour
         }
         */
         if (other.GetComponent<Resource>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>() || 
-            other.GetComponent<GeneticAlgorithm>() || other.GetComponent<HealthResource>())
+            other.GetComponent<GeneticAlgorithm>())
             _targets.Add(other);
     }
 
@@ -57,7 +57,7 @@ public class Vision : MonoBehaviour
         }
         */
         if (other.GetComponent<Resource>() || other.GetComponent<Faction1>() || other.GetComponent<Faction2>() || 
-            other.GetComponent<GeneticAlgorithm>() || other.GetComponent<HealthResource>())
+            other.GetComponent<GeneticAlgorithm>())
             _targets.Remove(other);
     }
 

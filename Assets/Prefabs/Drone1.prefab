@@ -247,7 +247,6 @@ MonoBehaviour:
   drone: {fileID: -4008459134947332096}
   target: {fileID: 0}
   resourceObject: {fileID: 0}
-  healthObject: {fileID: 0}
   territoryObject: {fileID: 0}
   faction1: {fileID: 0}
   faction2: {fileID: 0}
@@ -266,7 +265,9 @@ MonoBehaviour:
   visionRange: 5.27386
   health: 34.070827
   maxHealth: 34.070827
+  hungerMeter: 0
   fitnessScore: 0
+  healthNorm: 0
   colAvoidSensor: {fileID: 0}
   slider: {fileID: 509368693988524771}
   impactEffect: {fileID: 1473625048454486, guid: 284f05ab582ef494a9ab1dd8bc1e76ae,
@@ -278,6 +279,7 @@ MonoBehaviour:
   attacktimer: 0
   linetimer: 0
   miningtimer: 0
+  hungryBool: 0
   worldObject: {fileID: 0}
   world: {fileID: 0}
 --- !u!212 &3004667264445904129
@@ -560,8 +562,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2007972415
-  m_SortingLayer: -1
+  m_SortingLayerID: -1525701145
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

@@ -45,6 +45,9 @@ TagManager:
   - name: BG
     uniqueID: 1684727361
     locked: 0
+  - name: Capture
+    uniqueID: 2769266151
+    locked: 0
   - name: Line
     uniqueID: 2286994881
     locked: 0

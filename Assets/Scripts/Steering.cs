@@ -176,6 +176,14 @@ public class Steering : MonoBehaviour
         }
     }
 
+    public float GetDist(Vector3 targetPosition)
+    {
+        targetPosition = rb.ConvertVector(targetPosition);
+        Vector3 targetVelocity = targetPosition - rb.Position;
+        float dist = targetVelocity.magnitude;
+        return 0;
+    }
+
     /// <summary>
     /// Returns the steering for a character so it arrives at the target
     /// </summary>
