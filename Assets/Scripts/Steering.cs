@@ -205,10 +205,6 @@ public class Steering : MonoBehaviour
         {
             rb.Velocity = Vector3.zero;
 
-            Vector2 direction = new Vector2(targetPosition.x - transform.position.x,
-                                            targetPosition.y - transform.position.y);
-            transform.right = direction;
-
             return Vector3.zero;
         }
 

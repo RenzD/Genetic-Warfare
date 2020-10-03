@@ -476,8 +476,12 @@ public class Faction1 : Drone
     private Vector3 SeekEnemy()
     {
         Vector3 accel = steeringBasics.SeekEnemy(faction2.transform.position);
-        if (steeringBasics.GetDist(faction2.transform.position) < visionRange) // Attack range
+        if (steeringBasics.GetDist(faction2.transform.position) < (visionRange - 1f)) // Attack range
         {
+            Vector2 direction = new Vector2(faction2.transform.position.x - transform.position.x,
+                                            faction2.transform.position.y - transform.position.y);
+            transform.right = direction;
+
             attacktimer += Time.deltaTime;
             if (attacktimer > 0.8f)
             {
