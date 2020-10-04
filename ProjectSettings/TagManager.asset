@@ -45,6 +45,12 @@ TagManager:
   - name: BG
     uniqueID: 1684727361
     locked: 0
+  - name: Hedges
+    uniqueID: 2372519475
+    locked: 0
+  - name: Low obstacle
+    uniqueID: 2686777519
+    locked: 0
   - name: Capture
     uniqueID: 2769266151
     locked: 0
@@ -53,4 +59,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trees
+    uniqueID: 1202617593
     locked: 0

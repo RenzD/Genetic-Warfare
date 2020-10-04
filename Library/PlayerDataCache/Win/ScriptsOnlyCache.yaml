@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     - AnimationAutoDestroy
     - AvoidSensor
     - Bullet
+    - CameraController
     - Faction1
     - Faction2
     - GeneticAlgorithm
@@ -80,11 +81,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 12228}
+      Script: {instanceID: 12230}
     - Class: 114
-      Script: {instanceID: 12484}
+      Script: {instanceID: 12486}
     - Class: 114
-      Script: {instanceID: 12948}
+      Script: {instanceID: 12950}
     - Class: 114
       Script: {instanceID: 13740}
     - Class: 114
@@ -155,19 +156,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11738}
     - Class: 114
-      Script: {instanceID: 12102}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 12338}
+      Script: {instanceID: 12104}
     - Class: 114
-      Script: {instanceID: 12346}
+      Script: {instanceID: 12230}
     - Class: 114
-      Script: {instanceID: 12614}
+      Script: {instanceID: 12340}
     - Class: 114
-      Script: {instanceID: 12984}
+      Script: {instanceID: 12348}
     - Class: 114
-      Script: {instanceID: 13164}
+      Script: {instanceID: 12616}
     - Class: 114
-      Script: {instanceID: 13302}
+      Script: {instanceID: 12986}
+    - Class: 114
+      Script: {instanceID: 13166}
+    - Class: 114
+      Script: {instanceID: 13304}
     - Class: 114
       Script: {instanceID: 13740}
     - Class: 114
@@ -178,6 +183,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13994}
     - Class: 114
       Script: {instanceID: 14292}
+    - Class: 114
+      Script: {instanceID: 14384}
     - Class: 114
       Script: {instanceID: 14426}
     - Class: 114
@@ -219,7 +226,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: 1c875c08d63572aad9ae99c4f3988673
+      Hash: eb3c16e714c099c3ab8233fd8e649cb7
     assemblyName: Scripts.dll
     namespaceName: 
     className: GeneticAlgorithm
@@ -511,6 +518,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityMovementAI
     className: ArriveUnit
+  - hash:
+      serializedVersion: 2
+      Hash: facd8374b02919512b503d36c2c302f9
+    assemblyName: Scripts.dll
+    namespaceName: 
+    className: CameraController
   - hash:
       serializedVersion: 2
       Hash: 1aec10a39c03e8678e14b5c13720cad9
@@ -807,12 +820,6 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Scripts.dll
-    namespaceName: 
-    className: HealthResource
-  - hash:
-      serializedVersion: 2
       Hash: 0d85f4fda1e0e70cd92c084d12f05cdc
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityMovementAI
@@ -855,7 +862,7 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 48da70751d3567caaa8ab0e9d0427950
+      Hash: 517285ebe0e41a380e0e9be2a62debff
     assemblyName: Scripts.dll
     namespaceName: 
     className: Faction2
@@ -1047,7 +1054,7 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: 48da70751d3567caaa8ab0e9d0427950
+      Hash: 517285ebe0e41a380e0e9be2a62debff
     assemblyName: Scripts.dll
     namespaceName: 
     className: Faction1

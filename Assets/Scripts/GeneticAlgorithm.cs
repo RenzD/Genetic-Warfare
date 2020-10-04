@@ -22,11 +22,12 @@ public class GeneticAlgorithm : MonoBehaviour
     public Faction2 dronePrefab2;
     public World world;
     public Image mask;
-
+    public GameObject spawner;
     public Drone faction1Mom;
     public Drone faction1Dad;
     public Drone faction2Mom;
     public Drone faction2Dad;
+
 
     [Header("Info")]
     public float timeLeft1 = 0f;
@@ -45,6 +46,8 @@ public class GeneticAlgorithm : MonoBehaviour
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        GameObject w = GameObject.FindWithTag("World");
+        world = w.GetComponent<World>();
     }
 
     // Update is called once per frame
@@ -154,7 +157,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         if (world.Faction1FirstParent.fitnessScore == 0 || world.Faction1SecondParent.fitnessScore == 0 || world.numInitDrones1 < 5)
                         {
                             InitializeRandomAttributes(dronePrefab);
-                            Faction1 droneObj = Instantiate(dronePrefab, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            Faction1 droneObj = Instantiate(dronePrefab, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.identity);
                             droneObj.name = "Faction1 Parent " + world.numInitDrones1;
                             world.numPopulation1++;
                             world.numInitDrones1++;
@@ -164,7 +167,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         {
                             Crossover(dronePrefab, FACTION1NUM);
                             Mutation(dronePrefab);
-                            Faction1 droneObj = Instantiate(dronePrefab, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            Faction1 droneObj = Instantiate(dronePrefab, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.identity);
                             droneObj.name = "Faction1 Gen " + world.generation1++;
                             world.numPopulation1++;
                         }
@@ -187,7 +190,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < 5)
                         {
                             InitializeRandomAttributes(dronePrefab2);
-                            Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
                             droneObj.name = "Faction2 Parent " + world.numInitDrones2;
                             world.numPopulation2++;
                             world.numInitDrones2++;
@@ -198,7 +201,7 @@ public class GeneticAlgorithm : MonoBehaviour
                             Crossover(dronePrefab2, FACTION2NUM);
                             Mutation(dronePrefab2);
 
-                            Faction2 droneObj2 = Instantiate(dronePrefab2, new Vector3(transform.position.x, transform.position.y - 0.6f, 0), Quaternion.identity);
+                            Faction2 droneObj2 = Instantiate(dronePrefab2, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.Euler(new Vector3 (0,0,180)));
                             droneObj2.name = "Faction2 Gen " + world.generation2++;
                             world.numPopulation2++;
                         }
@@ -498,6 +501,6 @@ public class GeneticAlgorithm : MonoBehaviour
         droneObj.attack = Random.Range(5f, 8f);              // Attack
         droneObj.speed = Random.Range(3.5f, 4f);             // Speed
         droneObj.visionRange = Random.Range(3f, 6f);         // Vision Range
-        droneObj.hungerMeter = Random.Range(0.7f, 0.9f);     // Hunger
+        droneObj.hungerMeter = Random.Range(0.5f, 0.8f);     // Hunger
     }
 }

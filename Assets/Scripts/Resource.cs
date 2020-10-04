@@ -11,8 +11,8 @@ public class Resource : MonoBehaviour
     {
         if (resourceHealth <= 0)
         {
-            transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0f);
-            resourceHealth = 5f;
+            //transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0f);
+            //resourceHealth = 5f;
         }
     }
 }

@@ -11,10 +11,9 @@ public class CameraController : MonoBehaviour
     public float scrollSpeed = 2f;
     Camera cam;
     public float minSize = 20f;
-    public float maxSize = 40f;
+    public float maxSize = 30f;
 
     public float maxX;
-    public float maxY;
     private void Start()
     {
         cam = GetComponent<Camera>();
@@ -28,10 +27,9 @@ public class CameraController : MonoBehaviour
 
     private void CameraControls()
     {
-        maxX = cam.orthographicSize - 20f;
-        panLimit.x = (1 - maxY / 20f) * 30f;
-        maxY = cam.orthographicSize - 20f;
-        panLimit.y = (1 - maxY / 20f) * 20f;
+        maxX = cam.orthographicSize - 10f;
+        panLimit.x = (1 - maxX / 20f) * 35f;
+        panLimit.y = (1 - maxX / 20f) * 20f;
 
         Vector3 pos = transform.position;
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)
