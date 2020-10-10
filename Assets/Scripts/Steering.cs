@@ -32,7 +32,6 @@ public class Steering : MonoBehaviour
     public float timeToTarget = 0.1f;
     public float flockSize = 0.005f;
 
-    Shooting shoot;
 
     [Header("Look Direction Smoothing")]
 
@@ -52,7 +51,6 @@ public class Steering : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<AIRigidbody>();
-        shoot = GetComponent<Shooting>();
     }
 
     /// <summary>

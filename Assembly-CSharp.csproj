@@ -107,6 +107,10 @@
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\Wander1Unit.cs" />
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\Wander2Unit.cs" />
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\WanderAvoidUnit.cs" />
+    <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font2\license.txt" />
+    <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font1\license.txt" />
+    <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font1\readme.txt" />
+    <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font2\readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

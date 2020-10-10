@@ -214,10 +214,10 @@ public class Faction2 : Drone
                 {
                     behaviorState = BehaviorState.ARRIVE;
                 }
-                else if (dictionary[flockStr] > dictionary[wanderStr])
+                /*else if (dictionary[flockStr] > dictionary[wanderStr])
                 {
                     behaviorState = BehaviorState.FLOCK;
-                }
+                }*/
                 else
                 {
                     behaviorState = BehaviorState.WANDER;
@@ -526,7 +526,7 @@ public class Faction2 : Drone
         Vector3 accel = steeringBasics.Arrive(territoryObject.transform.position, this);
         if (accel == Vector3.zero)
         {
-            territoryObject.capturePoint -= Time.deltaTime;
+            territoryObject.capturePoint -= Time.deltaTime * 2;
             lineRenderer.SetPosition(0, firePoint.position);
             lineRenderer.SetPosition(1, territoryObject.transform.position);
             lineRenderer.enabled = true; ;

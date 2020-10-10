@@ -63,8 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TestS\EditMode\MathTest.cs" />
-    <None Include="Assets\TestS\EditMode\EditMode.asmdef" />
+    <Compile Include="Assets\Tests\EditMode\MathTest.cs" />
+    <None Include="Assets\Tests\EditMode\EditMode.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -194,6 +194,10 @@ public abstract class Drone : MonoBehaviour
     {
         if (health < 0)
         {
+            if (FindObjectOfType<AudioManager>())
+            {
+                FindObjectOfType<AudioManager>().Play("Explosion");
+            }
             Instantiate(deathEffect, transform.position, Quaternion.Euler(new Vector3(0f, 0f, Random.Range(0f, 360f))));
             Destroy(gameObject);
             numPopulation--;
@@ -211,6 +215,10 @@ public abstract class Drone : MonoBehaviour
     { 
         if (enemyDrone.health > 0)
         {
+            if (FindObjectOfType<AudioManager>())
+            {
+                FindObjectOfType<AudioManager>().Play("Blaster");
+            }
             enemyDrone.health -= attack;
             fitnessScore += (attack / 2);
         }
@@ -239,4 +247,5 @@ public abstract class Drone : MonoBehaviour
             health += (Time.deltaTime * 6);
         }
     }
+
 }

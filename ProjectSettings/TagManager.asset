@@ -19,7 +19,7 @@ TagManager:
   - 
   - Sensor
   - Bullet
-  - 
+  - ClickableObjects
   - 
   - 
   - 
@@ -62,4 +62,7 @@ TagManager:
     locked: 0
   - name: Trees
     uniqueID: 1202617593
+    locked: 0
+  - name: Black Screen
+    uniqueID: 1962747209
     locked: 0

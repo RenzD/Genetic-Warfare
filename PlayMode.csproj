@@ -63,8 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TestS\PlayMode\PlayModeTest.cs" />
-    <None Include="Assets\TestS\PlayMode\PlayMode.asmdef" />
+    <Compile Include="Assets\Tests\PlayMode\PlayModeTest.cs" />
+    <None Include="Assets\Tests\PlayMode\PlayMode.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -609,7 +609,12 @@
       <HintPath>E:/unity-workspace/Genetic Warfare/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Scripts.csproj">
+      <Project>{CD7DB128-42D0-C48D-BC69-03E4C411365D}</Project>
+      <Name>Scripts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

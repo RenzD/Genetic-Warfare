@@ -111,10 +111,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 18004, y: 14042}
+  m_MinSize: {x: 677, y: 492}
+  m_MaxSize: {x: 18001, y: 14042}
   vertical: 1
-  controlID: 140499
+  controlID: 146
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -136,10 +136,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 18004, y: 14042}
+  m_MinSize: {x: 677, y: 492}
+  m_MaxSize: {x: 18001, y: 14042}
   vertical: 0
-  controlID: 140500
+  controlID: 147
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,12 +159,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1644
+    width: 1643
     height: 947
-  m_MinSize: {x: 403, y: 492}
-  m_MaxSize: {x: 14003, y: 14042}
+  m_MinSize: {x: 402, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 1
-  controlID: 140501
+  controlID: 148
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -184,12 +184,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1644
-    height: 676
-  m_MinSize: {x: 403, y: 221}
-  m_MaxSize: {x: 8003, y: 4021}
+    width: 1643
+    height: 635
+  m_MinSize: {x: 402, y: 221}
+  m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 140502
+  controlID: 149
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -207,10 +207,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 453
-    height: 676
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+    width: 239
+    height: 635
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -231,10 +231,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 453
+    x: 239
     y: 0
-    width: 1191
-    height: 676
+    width: 1404
+    height: 635
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 17}
@@ -262,13 +262,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 676
-    width: 1644
-    height: 271
-  m_MinSize: {x: 333, y: 271}
-  m_MaxSize: {x: 14003, y: 10021}
+    y: 635
+    width: 1643
+    height: 312
+  m_MinSize: {x: 331, y: 271}
+  m_MaxSize: {x: 14001, y: 10021}
   vertical: 0
-  controlID: 140528
+  controlID: 59
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -286,8 +286,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 977
-    height: 271
+    width: 604
+    height: 312
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 19}
@@ -305,24 +305,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 977
+    x: 604
     y: 0
-    width: 667
-    height: 271
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 23}
+    width: 1039
+    height: 312
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 20}
   - {fileID: 21}
   - {fileID: 22}
-  - {fileID: 23}
-  m_Selected: 3
+  m_Selected: 2
   m_LastSelected: 0
 --- !u!114 &14
 MonoBehaviour:
@@ -339,15 +338,15 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1644
+    x: 1643
     y: 0
-    width: 276
+    width: 277
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 24}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 24}
+  - {fileID: 23}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &15
@@ -371,10 +370,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 454
-    y: 19
-    width: 1189
-    height: 655
+    x: 239
+    y: 73
+    width: 1402
+    height: 614
   m_ViewDataDictionary: {fileID: 0}
   m_SerializedViewNames: []
   m_SerializedViewValues: []
@@ -384,11 +383,11 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1127, y: 634}
+  m_TargetSize: {x: 1054, y: 593}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_MaximizeOnPlay: 1
+  m_MaximizeOnPlay: 0
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
@@ -399,10 +398,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -806
-    m_HBaseRangeMax: 806
-    m_VBaseRangeMin: -453.5
-    m_VBaseRangeMax: 453.5
+    m_HBaseRangeMin: -527
+    m_HBaseRangeMax: 527
+    m_VBaseRangeMin: -296.5
+    m_VBaseRangeMax: 296.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -420,23 +419,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1920
-      height: 907
+      width: 1402
+      height: 593
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 960, y: 453.5}
+    m_Translation: {x: 701, y: 296.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -960
-      y: -453.5
-      width: 1920
-      height: 907
+      x: -701
+      y: -296.5
+      width: 1402
+      height: 593
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 1920, y: 928}
+  m_LastWindowPixelSize: {x: 1402, y: 614}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -465,15 +464,15 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 452
-    height: 655
+    width: 238
+    height: 614
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 1350}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7a4cf8ff8e4cf8ff8e4df8ff984df8ffde15faffce2ffbffd454fcff2656fcff5c5cfcffa85cfcff9a5efcff5efbffff1c3a0000a23a0000a63a0000c63b0000183c0000f0130300
+      m_ExpandedIDs: fa16e3ff1017e3ff70f5e3ff78f5e3ff8ef5e3fffafde3ff00fee3ff16fee3ff8206e4ff8c06e4ffa206e4ff56e9e4ff62e9e4ff78e9e4ff40f2e4ffeef2e4ff04f3e4ffccfbe4ff30fce4ff46fce4ff0e05e5ffba05e5ffd005e5ff3c0ee5ff420ee5ff580ee5ff2017e5ff7817e5ff8e17e5ff5620e5ffba20e5ffd020e5ff3c29e5ff342ae5ff4a2ae5ff1c32e5ff7432e5ff8a32e5fff63ae5ffa63be5ffbc3be5ff141ee6ff3c91e7ff3ecbf6ff54cbf6ff1cd4f6ff22d4f6ff38d4f6ff00ddf6ffa8f0f6ff9a05f7ffb005f7ffa610f7fffe10f7ff1411f7ff8219f7ffc028f7ffd628f7ffa830f7ff4832f7ff5e32f7ff303af7ffc6a5f7ffe8aaf7fffeaaf7ffd681f8fffc86f8ff1287f8ff7c64f9ff3e6af9ff546af9ff067af9ffa26efaffaa6efaffc06efaff0075faffa875faffbe75faff2a7efaff307efaff467efaffb286faff0c87faff2287faff608dfaffb88dfaffce8dfaff0e94faff0695faff1c95faffee9cfaff469dfaff5c9dfaff887efbffe07efbfff67efbfffe8ffbff0490fbff1a90fbffec97fbfff897fbff0e98fbff189efbff52a0fbff68a0fbff72a6fbffbaa7fbffd0a7fbff08b0fbffb0b0fbffc6b0fbfffeb8fbff46bafbff5cbafbff66c0fbff54c1fbff6ac1fbff74c7fbffeccafbff02cbfbff26d4fbfff0d7fbff06d8fbff9ee0fbff1ee1fbff24e1fbff3ae1fbff14e9fbff6ce9fbff82e9fbffc0effbff18f0fbff2ef0fbff9af8fbff94f9fbffaaf9fbff1602fcff1803fcff2e03fcff9a0bfcff360dfcff4c0dfcffb815fcff2a17fcff4017fcff6420fcff6a20fcff8020fcffa429fcff622afcff782afcff9413fdffa013fdffb613fdff00fffdff9a00feffb000feffd409feff600efeff760efeff90eafeffbc02ffff8a03ffffa003ffff20f1ffff26f1ffff3cf1ffff66faffff5efbffff9e260500e826050042270500c8270500682a0500
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -518,10 +517,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 453
+    x: 239
     y: 73
-    width: 1189
-    height: 655
+    width: 1402
+    height: 614
   m_ViewDataDictionary: {fileID: 0}
   m_ShowContextualTools: 0
   m_WindowGUID: bd2a1bc31c3f8dd40bc73f5b12210469
@@ -533,9 +532,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -4.0761356, y: 16.434269, z: -804.7223}
+    m_Target: {x: 392.7264, y: 197.36919, z: -48.285122}
     speed: 2
-    m_Value: {x: -4.0761356, y: 16.434269, z: -804.7223}
+    m_Value: {x: 387.15997, y: 191.71936, z: -47.05358}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -585,9 +584,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 58.194977
+    m_Target: 286.12576
     speed: 2
-    m_Value: 58.194977
+    m_Value: 273.80457
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -633,10 +632,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 413
+    x: 239
     y: 73
-    width: 1086
-    height: 655
+    width: 1402
+    height: 484
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &19
 MonoBehaviour:
@@ -660,9 +659,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 749
-    width: 976
-    height: 250
+    y: 708
+    width: 603
+    height: 291
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -677,20 +676,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Resources
   m_ViewMode: 1
   m_StartGridSize: 66
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Resources
   m_LastFoldersGridSize: 66
   m_LastProjectPath: E:\unity-workspace\Genetic Warfare
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0c3f0000
-    m_LastClickedID: 16140
-    m_ExpandedIDs: 00000000aa3e0000ac3e0000ae3e0000b03e0000b23e0000b43e0000b63e0000b83e0000ba3e0000bc3e0000be3e0000c03e0000c23e0000c43e0000c63e0000c83e0000ca3e0000cc3e0000ce3e0000d03e0000d23e0000d43e0000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000
+    m_SelectedIDs: 6a3b0000
+    m_LastClickedID: 15210
+    m_ExpandedIDs: 00000000183b00001a3b00001c3b00001e3b0000203b0000223b0000243b0000263b0000283b00002a3b00002c3b00002e3b0000303b0000323b0000343b0000363b0000383b00003a3b00003c3b00003e3b0000403b0000423b0000443b0000463b0000483b00004a3b00004c3b00004e3b0000503b0000523b0000543b0000563b0000583b00005a3b00005c3b00005e3b0000603b0000623b0000643b0000663b0000683b00006a3b00006c3b0000823b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -718,7 +717,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000aa3e0000ac3e0000ae3e0000b03e0000b23e0000b43e0000b63e0000b83e0000ba3e0000bc3e0000be3e0000c03e0000c23e0000c43e0000c63e0000c83e0000ca3e0000cc3e0000ce3e0000d03e0000d23e0000d43e0000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000
+    m_ExpandedIDs: 00000000183b00001a3b00001c3b00001e3b0000203b0000223b0000243b0000263b0000283b00002a3b00002c3b00002e3b0000303b0000323b0000343b0000363b0000383b00003a3b00003c3b00003e3b0000403b0000423b0000443b0000463b0000483b00004a3b00004c3b00004e3b0000503b0000523b0000543b0000563b0000583b00005a3b00005c3b00005e3b0000603b0000623b0000643b0000663b0000683b00006a3b00006c3b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -745,8 +744,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c62300005c3a0000aeb800000000000080070100423c0000643d0000ba3c0100e63c0100da3c0100be3a0100a2790100
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c62300005c3a0000aeb800000000000080070100423c0000643d0000ba3c0100e63c0100da3c0100be3a0100a27901008c40000050450000c6420000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -762,7 +761,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 12}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -775,6 +774,32 @@ MonoBehaviour:
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 243
 --- !u!114 &20
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12003, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Console
+    m_Image: {fileID: 111653112392082826, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 604
+    y: 708
+    width: 1037
+    height: 291
+  m_ViewDataDictionary: {fileID: 0}
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -795,78 +820,14 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 563
+    x: 584
     y: 749
-    width: 1079
+    width: 1057
     height: 250
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 251594
---- !u!114 &21
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12914, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Animator
-    m_Image: {fileID: 663490763026382308, guid: 0000000000000000d000000000000000,
-      type: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 693
-    y: 580
-    width: 792
-    height: 419
-  m_ViewDataDictionary: {fileID: 0}
-  m_ViewTransforms:
-    m_KeySerializationHelper:
-    - {fileID: 1107520698303176142, guid: 9393edd61f21c4b4a980ceca6082f42a, type: 2}
-    m_ValueSerializationHelper:
-    - e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-  m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: 9393edd61f21c4b4a980ceca6082f42a,
-    type: 2}
-  m_BreadCrumbs:
-  - m_Target: {fileID: 1107520698303176142, guid: 9393edd61f21c4b4a980ceca6082f42a,
-      type: 2}
-    m_ScrollPosition: {x: 0, y: 0}
-  stateMachineGraph: {fileID: 0}
-  stateMachineGraphGUI: {fileID: 0}
-  blendTreeGraph: {fileID: 0}
-  blendTreeGraphGUI: {fileID: 0}
-  m_AutoLiveLink: 1
-  m_MiniTool: 0
-  m_LockTracker:
-    m_IsLocked: 0
-  m_CurrentEditor: 0
-  m_LayerEditor:
-    m_SelectedLayerIndex: 0
+  m_LastSelectedObjectID: 337808
 --- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -887,22 +848,22 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 530
-    y: 749
-    width: 969
-    height: 250
+    x: 604
+    y: 708
+    width: 1037
+    height: 291
   m_ViewDataDictionary: {fileID: 0}
   m_Spl:
-    ID: 46225
-    splitterInitialOffset: 0
+    ID: 173
+    splitterInitialOffset: 240
     currentActiveSplitter: -1
-    realSizes: 870000002d000000
+    realSizes: ac00000031000000
     relativeSizes:
-    - 0.75
-    - 0.25
+    - 0.77828056
+    - 0.22171944
     minSizes: 2000000020000000
     maxSizes: 0000000000000000
-    lastTotalSize: 180
+    lastTotalSize: 221
     splitSize: 6
     xOffset: 0
   m_TestTypeToolbarIndex: 0
@@ -914,7 +875,7 @@ MonoBehaviour:
       name: Genetic Warfare
       fullName: Genetic Warfare
       resultStatus: 1
-      duration: 0.3782179
+      duration: 44.280712
       messages: 
       output: 
       stacktrace: 
@@ -930,7 +891,7 @@ MonoBehaviour:
       name: PlayMode.dll
       fullName: E:/unity-workspace/Genetic Warfare/Library/ScriptAssemblies/PlayMode.dll
       resultStatus: 1
-      duration: 0.3451785
+      duration: 44.224937
       messages: 
       output: 
       stacktrace: 
@@ -946,7 +907,7 @@ MonoBehaviour:
       name: Tests
       fullName: Tests
       resultStatus: 1
-      duration: 0.3350302
+      duration: 44.194805
       messages: 
       output: 
       stacktrace: 
@@ -962,7 +923,7 @@ MonoBehaviour:
       name: PlayModeTest
       fullName: Tests.PlayModeTest
       resultStatus: 1
-      duration: 0.3294718
+      duration: 44.169044
       messages: 
       output: 
       stacktrace: 
@@ -974,11 +935,232 @@ MonoBehaviour:
       parentId: 1005
       parentUniqueId: PlayMode.dll/[PlayMode][Tests][suite]
     - id: 1002
-      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Initial_Main_Menu_State]
-      name: Check_Initial_Main_Menu_State
-      fullName: Tests.PlayModeTest.Check_Initial_Main_Menu_State
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Audio_Manager_Object]
+      name: Check_Audio_Manager_Object
+      fullName: Tests.PlayModeTest.Check_Audio_Manager_Object
       resultStatus: 1
-      duration: 0.1465209
+      duration: 1.2681729
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1008
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Audio_Manager_Object_Transition_From_Menu_To_Simulation_Scenes]
+      name: Check_Audio_Manager_Object_Transition_From_Menu_To_Simulation_Scenes
+      fullName: Tests.PlayModeTest.Check_Audio_Manager_Object_Transition_From_Menu_To_Simulation_Scenes
+      resultStatus: 1
+      duration: 0.1891598
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone_Health_Decay_And_Death]
+      name: Check_Drone_Health_Decay_And_Death
+      fullName: Tests.PlayModeTest.Check_Drone_Health_Decay_And_Death
+      resultStatus: 1
+      duration: 1.3279856
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1005
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone1_Capture_Behavior_Priority]
+      name: Check_Drone1_Capture_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone1_Capture_Behavior_Priority
+      resultStatus: 1
+      duration: 2.2110388
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone1_Capturing_A_Territory]
+      name: Check_Drone1_Capturing_A_Territory
+      fullName: Tests.PlayModeTest.Check_Drone1_Capturing_A_Territory
+      resultStatus: 1
+      duration: 2.210143
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone1_Flock_Behavior_Priority]
+      name: Check_Drone1_Flock_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone1_Flock_Behavior_Priority
+      resultStatus: 1
+      duration: 1.2116756
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1006
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone1_Repair_Behavior_Priority]
+      name: Check_Drone1_Repair_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone1_Repair_Behavior_Priority
+      resultStatus: 1
+      duration: 2.2024796
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1008
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone1_Wander_Behavior_Priority_When_Nothing_Is_Around]
+      name: Check_Drone1_Wander_Behavior_Priority_When_Nothing_Is_Around
+      fullName: Tests.PlayModeTest.Check_Drone1_Wander_Behavior_Priority_When_Nothing_Is_Around
+      resultStatus: 1
+      duration: 0.3059767
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1004
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone2_Capture_Behavior_Priority]
+      name: Check_Drone2_Capture_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone2_Capture_Behavior_Priority
+      resultStatus: 1
+      duration: 2.198473
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone2_Capturing_A_Territory]
+      name: Check_Drone2_Capturing_A_Territory
+      fullName: Tests.PlayModeTest.Check_Drone2_Capturing_A_Territory
+      resultStatus: 1
+      duration: 2.1998136
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone2_Flock_Behavior_Priority]
+      name: Check_Drone2_Flock_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone2_Flock_Behavior_Priority
+      resultStatus: 1
+      duration: 1.2018421
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1005
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone2_Repair_Behavior_Priority]
+      name: Check_Drone2_Repair_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drone2_Repair_Behavior_Priority
+      resultStatus: 1
+      duration: 2.1994176
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1008
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drone2_Wander_Behavior_Priority_When_Nothing_Is_Around]
+      name: Check_Drone2_Wander_Behavior_Priority_When_Nothing_Is_Around
+      fullName: Tests.PlayModeTest.Check_Drone2_Wander_Behavior_Priority_When_Nothing_Is_Around
+      resultStatus: 1
+      duration: 0.3076938
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1006
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drones_Damage_Function]
+      name: Check_Drones_Damage_Function
+      fullName: Tests.PlayModeTest.Check_Drones_Damage_Function
+      resultStatus: 1
+      duration: 1.7079597
       messages: 
       output: 
       stacktrace: 
@@ -991,11 +1173,11 @@ MonoBehaviour:
       parentId: 1001
       parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
     - id: 1003
-      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Main_Menu_Transition_To_Simulation]
-      name: Check_Main_Menu_Transition_To_Simulation
-      fullName: Tests.PlayModeTest.Check_Main_Menu_Transition_To_Simulation
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drones_Flee_Behavior_Priority]
+      name: Check_Drones_Flee_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drones_Flee_Behavior_Priority
       resultStatus: 1
-      duration: 0.1645059
+      duration: 0.5022963
       messages: 
       output: 
       stacktrace: 
@@ -1007,12 +1189,386 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
-    m_ResultText: Tests (0.335s)
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Drones_Seek_Behavior_Priority]
+      name: Check_Drones_Seek_Behavior_Priority
+      fullName: Tests.PlayModeTest.Check_Drones_Seek_Behavior_Priority
+      resultStatus: 1
+      duration: 2.2029443
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1003
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Faction1_Territory_Spawner_of_Drones]
+      name: Check_Faction1_Territory_Spawner_of_Drones
+      fullName: Tests.PlayModeTest.Check_Faction1_Territory_Spawner_of_Drones
+      resultStatus: 1
+      duration: 3.2139988
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Faction2_Territory_Spawner_of_Drones]
+      name: Check_Faction2_Territory_Spawner_of_Drones
+      fullName: Tests.PlayModeTest.Check_Faction2_Territory_Spawner_of_Drones
+      resultStatus: 1
+      duration: 3.1956518
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1008
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Genetic_Algorithm_Crossover_Function]
+      name: Check_Genetic_Algorithm_Crossover_Function
+      fullName: Tests.PlayModeTest.Check_Genetic_Algorithm_Crossover_Function
+      resultStatus: 1
+      duration: 0.3057765
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Genetic_Algorithm_Mutation_Function]
+      name: Check_Genetic_Algorithm_Mutation_Function
+      fullName: Tests.PlayModeTest.Check_Genetic_Algorithm_Mutation_Function
+      resultStatus: 1
+      duration: 0.4407574
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Genetic_Algorithm_Parent_Selection_Function]
+      name: Check_Genetic_Algorithm_Parent_Selection_Function
+      fullName: Tests.PlayModeTest.Check_Genetic_Algorithm_Parent_Selection_Function
+      resultStatus: 1
+      duration: 5.193498
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_If_Drones_Are_In_Bound_After_5_Seconds]
+      name: Check_If_Drones_Are_In_Bound_After_5_Seconds
+      fullName: Tests.PlayModeTest.Check_If_Drones_Are_In_Bound_After_5_Seconds
+      resultStatus: 1
+      duration: 5.0979013
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_If_Heal_Stations_Are_In_Bounds]
+      name: Check_If_Heal_Stations_Are_In_Bounds
+      fullName: Tests.PlayModeTest.Check_If_Heal_Stations_Are_In_Bounds
+      resultStatus: 1
+      duration: 0.0886214
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_If_Sounds_Settings_Are_Saved_On_Scene_Transitions]
+      name: Check_If_Sounds_Settings_Are_Saved_On_Scene_Transitions
+      fullName: Tests.PlayModeTest.Check_If_Sounds_Settings_Are_Saved_On_Scene_Transitions
+      resultStatus: 1
+      duration: 0.2137089
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_If_Territories_Are_In_Bounds]
+      name: Check_If_Territories_Are_In_Bounds
+      fullName: Tests.PlayModeTest.Check_If_Territories_Are_In_Bounds
+      resultStatus: 1
+      duration: 0.1162674
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1003
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Instantiation_Of_Faction_1_Drone]
+      name: Check_Instantiation_Of_Faction_1_Drone
+      fullName: Tests.PlayModeTest.Check_Instantiation_Of_Faction_1_Drone
+      resultStatus: 1
+      duration: 0.206438
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Instantiation_Of_Faction_2_Drone]
+      name: Check_Instantiation_Of_Faction_2_Drone
+      fullName: Tests.PlayModeTest.Check_Instantiation_Of_Faction_2_Drone
+      resultStatus: 1
+      duration: 0.2194335
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1011
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Main_Menu_Scene_Objects]
+      name: Check_Main_Menu_Scene_Objects
+      fullName: Tests.PlayModeTest.Check_Main_Menu_Scene_Objects
+      resultStatus: 1
+      duration: 0.0827084
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1010
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Main_Menu_Scene_Settings_Objects]
+      name: Check_Main_Menu_Scene_Settings_Objects
+      fullName: Tests.PlayModeTest.Check_Main_Menu_Scene_Settings_Objects
+      resultStatus: 1
+      duration: 0.079616
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1007
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Main_Menu_Scene_Transition_To_Simulation]
+      name: Check_Main_Menu_Scene_Transition_To_Simulation
+      fullName: Tests.PlayModeTest.Check_Main_Menu_Scene_Transition_To_Simulation
+      resultStatus: 1
+      duration: 0.1765217
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1006
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Scene_Transition_From_Menu_To_Simulation_To_Menu]
+      name: Check_Scene_Transition_From_Menu_To_Simulation_To_Menu
+      fullName: Tests.PlayModeTest.Check_Scene_Transition_From_Menu_To_Simulation_To_Menu
+      resultStatus: 1
+      duration: 0.2860286
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Simulation_Scene_Game_Objects]
+      name: Check_Simulation_Scene_Game_Objects
+      fullName: Tests.PlayModeTest.Check_Simulation_Scene_Game_Objects
+      resultStatus: 1
+      duration: 0.1228396
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1005
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Simulation_Scene_Pause_And_FastForward_Buttons]
+      name: Check_Simulation_Scene_Pause_And_FastForward_Buttons
+      fullName: Tests.PlayModeTest.Check_Simulation_Scene_Pause_And_FastForward_Buttons
+      resultStatus: 1
+      duration: 0.1568162
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1004
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Simulation_Scene_Settings_Objects]
+      name: Check_Simulation_Scene_Settings_Objects
+      fullName: Tests.PlayModeTest.Check_Simulation_Scene_Settings_Objects
+      resultStatus: 1
+      duration: 0.128415
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Stats_UI_Slider]
+      name: Check_Stats_UI_Slider
+      fullName: Tests.PlayModeTest.Check_Stats_UI_Slider
+      resultStatus: 1
+      duration: 1.1004598
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_Test_Object_Position]
+      name: Check_Test_Object_Position
+      fullName: Tests.PlayModeTest.Check_Test_Object_Position
+      resultStatus: 1
+      duration: 0.0145966
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    - id: 1002
+      uniqueId: PlayMode.dll/Tests/PlayModeTest/[PlayMode][Tests.PlayModeTest.Check_World_Population_System]
+      name: Check_World_Population_System
+      fullName: Tests.PlayModeTest.Check_World_Population_System
+      resultStatus: 1
+      duration: 0.2042708
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.PlayModeTest][suite]
+    m_ResultText: Check_Genetic_Algorithm_Mutation_Function (0.441s)
     m_ResultStacktrace: 
     m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: bc805a6d
-      m_LastClickedID: 1834647740
+      scrollPos: {x: 0, y: 488}
+      m_SelectedIDs: e02f229c
+      m_LastClickedID: -1675481120
       m_ExpandedIDs: ed8040a89f5c62b631d9773bbc805a6dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -1164,32 +1720,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 1
-  m_Script: {fileID: 12003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Console
-    m_Image: {fileID: 111653112392082826, guid: 0000000000000000d000000000000000,
-      type: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 977
-    y: 749
-    width: 665
-    height: 250
-  m_ViewDataDictionary: {fileID: 0}
---- !u!114 &24
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
   m_Script: {fileID: 12019, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1202,9 +1732,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1644
+    x: 1643
     y: 73
-    width: 275
+    width: 276
     height: 926
   m_ViewDataDictionary: {fileID: 0}
   m_OpenAddComponentMenu: 0

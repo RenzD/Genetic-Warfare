@@ -43,6 +43,8 @@ public class GeneticAlgorithm : MonoBehaviour
     static readonly int FACTION1NUM = 1;
     static readonly int FACTION2NUM = 2;
 
+    static readonly int RANDOMDRONESNUM = 15;
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -79,8 +81,24 @@ public class GeneticAlgorithm : MonoBehaviour
                     capturePoint -= Time.deltaTime;
                 }
             }
+        } else if (territoryState == TerritoryState.UNCAPTURED)
+        {
+            if (capturePoint < 0)
+            {
+                capturePoint += Time.deltaTime / 3;
+                if (capturePoint > 0)
+                {
+                    capturePoint = 0;
+                }
+            } else if (capturePoint > 0)
+            {
+                capturePoint -= Time.deltaTime / 3;
+                if (capturePoint < 0)
+                {
+                    capturePoint = 0;
+                }
+            }
         }
-       
     }
 
     private void UpdateCaptureUI()
@@ -108,16 +126,16 @@ public class GeneticAlgorithm : MonoBehaviour
             capturePoint = maxCapturePoint;
             territoryState = TerritoryState.FACTION1;
             
-            world.ownedTerritory1++;
-            world.ownedTerritory2--;
+            world.capturedTerritoryNum1++;
+            world.capturedTerritoryNum2--;
         }
         else if (capturePoint <= minCapturePoint && territoryState != TerritoryState.FACTION2 && territoryState != TerritoryState.UNCAPTURED)
         {
             sprite.color = new Color(0, 1, 0, 1);
             capturePoint = minCapturePoint;
             territoryState = TerritoryState.FACTION2;
-            world.ownedTerritory2++;
-            world.ownedTerritory1--;
+            world.capturedTerritoryNum2++;
+            world.capturedTerritoryNum1--;
         }
 
         // When a territory is uncaptured and the capture point reaches a certain number
@@ -128,13 +146,13 @@ public class GeneticAlgorithm : MonoBehaviour
             {
                 capturePoint = maxCapturePoint;
                 territoryState = TerritoryState.FACTION1;
-                world.ownedTerritory1++;
+                world.capturedTerritoryNum1++;
             }
             else if (capturePoint <= minCapturePoint)
             {
                 capturePoint = minCapturePoint;
                 territoryState = TerritoryState.FACTION2;
-                world.ownedTerritory2++;
+                world.capturedTerritoryNum2++;
             }
         }
 
@@ -154,7 +172,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         //Fitness/Selection
                         ParentSelection("Drone1");
                         // Initial population
-                        if (world.Faction1FirstParent.fitnessScore == 0 || world.Faction1SecondParent.fitnessScore == 0 || world.numInitDrones1 < 5)
+                        if (world.Faction1FirstParent.fitnessScore == 0 || world.Faction1SecondParent.fitnessScore == 0 || world.numInitDrones1 < RANDOMDRONESNUM)
                         {
                             InitializeRandomAttributes(dronePrefab);
                             Faction1 droneObj = Instantiate(dronePrefab, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.identity);
@@ -163,7 +181,7 @@ public class GeneticAlgorithm : MonoBehaviour
                             world.numInitDrones1++;
                         }
                         // Applies Genetic Algorithm to create new drones
-                        else if (world.Faction1FirstParent.fitnessScore != 0 && world.Faction1SecondParent.fitnessScore != 0 && world.numInitDrones1 >= 5)
+                        else if (world.Faction1FirstParent.fitnessScore != 0 && world.Faction1SecondParent.fitnessScore != 0 && world.numInitDrones1 >= RANDOMDRONESNUM)
                         {
                             Crossover(dronePrefab, FACTION1NUM);
                             Mutation(dronePrefab);
@@ -187,7 +205,7 @@ public class GeneticAlgorithm : MonoBehaviour
                         //Fitness/Selection
                         ParentSelection("Drone2");
 
-                        if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < 5)
+                        if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < RANDOMDRONESNUM)
                         {
                             InitializeRandomAttributes(dronePrefab2);
                             Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
@@ -195,7 +213,7 @@ public class GeneticAlgorithm : MonoBehaviour
                             world.numPopulation2++;
                             world.numInitDrones2++;
                         }
-                        else if (faction2Mom != null && faction2Dad != null && world.numInitDrones2 >= 5)
+                        else if (faction2Mom != null && faction2Dad != null && world.numInitDrones2 >= RANDOMDRONESNUM)
                         {
                             //Genetic Algorithm
                             Crossover(dronePrefab2, FACTION2NUM);
@@ -236,11 +254,11 @@ public class GeneticAlgorithm : MonoBehaviour
     /**
      * Mutates 1 random attribute of our new drone
      */
-    private void Mutation(Drone dronePrefab)
+    public int Mutation(Drone dronePrefab)
     {
         int rdmAttrPos = Random.Range(0, 10);
-        float rdmBehavior = Random.Range(-3f, 3f);
-        
+        float rdmBehavior = (float)Math.Round(Random.Range(-3f, 3f), 2);
+
         switch (rdmAttrPos)
         {
             case 0:
@@ -262,28 +280,28 @@ public class GeneticAlgorithm : MonoBehaviour
                 dronePrefab.capture += rdmBehavior;
                 break;
             case 6:
-                float rdmHealth = Random.Range(0f, 10f);
+                float rdmHealth = (float)Math.Round(Random.Range(0f, 10f), 2);
                 dronePrefab.maxHealth += rdmHealth;
                 dronePrefab.health += dronePrefab.maxHealth;
                 break;
             case 7:
-                float rdmAttack = Random.Range(0f, 1f);
+                float rdmAttack = (float)Math.Round(Random.Range(0f, 1f), 2);
                 dronePrefab.attack += rdmAttack;
                 break;
             case 8:
-                float rdmSpeed = Random.Range(0f, 0.2f);
+                float rdmSpeed = (float)Math.Round(Random.Range(0f, 0.2f), 2);
                 dronePrefab.speed += rdmSpeed;
                 break;
             case 9:
-                float rdmVision = Random.Range(0f, 0.2f);
+                float rdmVision = (float)Math.Round(Random.Range(0f, 0.2f), 2);
                 dronePrefab.visionRange += rdmVision;
                 break;
             case 10:
                 if (dronePrefab.hungerMeter > 0.2f && dronePrefab.hungerMeter < 0.95f)
                 {
-                    float rdmHunger = Random.Range(-0.05f, 0.05f);
+                    float rdmHunger = (float)Math.Round(Random.Range(-0.05f, 0.05f), 2);
                     dronePrefab.hungerMeter += rdmHunger;
-                    // Make sure it stays within parameter
+                    // Makes sure it stays within parameter
                     if (dronePrefab.hungerMeter < 0.2f)
                     {
                         dronePrefab.hungerMeter = 0.2f;
@@ -295,6 +313,7 @@ public class GeneticAlgorithm : MonoBehaviour
                 }
                 break;
         }
+        return rdmAttrPos;
     }
 
     /**
@@ -322,41 +341,7 @@ public class GeneticAlgorithm : MonoBehaviour
             droneAttributes[i] = tempDroneAtt;
         }
     }
-    /*
-    // Set top 2 parent drones
-    private void ParentSelection(string droneTag)
-    {
-        List<GameObject> bestDrones = new List<GameObject>();
-        GameObject[] droneObjects;
-
-        droneObjects = GameObject.FindGameObjectsWithTag(droneTag);
-        foreach (GameObject drone in droneObjects)
-        {
-            Drone droneTracker = drone.GetComponent<Drone>();
-            bestDrones = droneObjects.OrderByDescending(x => x.GetComponent<Drone>().fitnessScore).ToList();
-        }
-
-        if (bestDrones.Count >= 2 && bestDrones.ElementAt(0).GetComponent<Drone>().fitnessScore != 0 &&
-                                     bestDrones.ElementAt(1).GetComponent<Drone>().fitnessScore != 0)
-        {
-            if (droneTag == "Drone1")
-            {
-                faction1Mom = bestDrones.ElementAt(0).GetComponent<Drone>();
-                faction1Dad = bestDrones.ElementAt(1).GetComponent<Drone>();
-            } 
-            else if (droneTag == "Drone2")
-            {
-                faction2Mom = bestDrones.ElementAt(0).GetComponent<Drone>();
-                faction2Dad = bestDrones.ElementAt(1).GetComponent<Drone>();
-            }
-            
-            //Debug.Log(bestDrones.ElementAt(0).GetComponent<Faction1>().fitnessScore.ToString());
-            //Debug.Log(bestDrones.ElementAt(1).GetComponent<Faction1>().fitnessScore.ToString());
-        }
-        //Debug.Log("====================================");
-    }
-    */
-
+   
     /**
      * Selects the best drones as parents
      * Saves top 2 drones attributes to world
@@ -438,7 +423,7 @@ public class GeneticAlgorithm : MonoBehaviour
     /**
      * Saves/Sets the attributes of the best drones
      */
-    private World.DroneAttributes SetAttributes(Drone drone)
+    public World.DroneAttributes SetAttributes(Drone drone)
     {
         World.DroneAttributes factionParent;
         factionParent.wander = drone.wander;
@@ -457,13 +442,24 @@ public class GeneticAlgorithm : MonoBehaviour
 
         factionParent.fitnessScore = drone.fitnessScore;
 
+        string droneName = drone.name;
+        string[] splitArray = droneName.Split(' ');
+
+        if (splitArray[1] == "Parent")
+        {
+            factionParent.generation = "0";
+        }
+        else
+        {
+            factionParent.generation = splitArray[2];
+        }
         return factionParent;
     }
 
     /**
      * Initializes random attributes for drones when there are no parents drones yet
      */
-    private void InitializeRandomAttributes(Drone droneObj)
+    public void InitializeRandomAttributes(Drone droneObj)
     {
         //float[] attributes = { Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)};
         /* SUM of 100
@@ -489,18 +485,18 @@ public class GeneticAlgorithm : MonoBehaviour
         droneObj.capture = (att[5] / sum) * 100f;
         */
 
-        droneObj.wander = Random.Range(35f, 40f);
-        droneObj.seek = Random.Range(35f, 40f);
-        droneObj.arrive = Random.Range(35f, 40f);
-        droneObj.flee = Random.Range(35f, 40f);
-        droneObj.flock = Random.Range(35f, 40f);
-        droneObj.capture = Random.Range(35f, 40f);
+        droneObj.wander = (float) Math.Round(Random.Range(35f, 40f), 2);
+        droneObj.seek = (float)Math.Round(Random.Range(35f, 40f), 2);
+        droneObj.arrive = (float)Math.Round(Random.Range(35f, 40f), 2);
+        droneObj.flee = (float)Math.Round(Random.Range(35f, 40f), 2);
+        droneObj.flock = (float)Math.Round(Random.Range(35f, 40f), 2);
+        droneObj.capture = (float)Math.Round(Random.Range(35f, 40f), 2);
 
-        droneObj.maxHealth = Random.Range(30f, 40f);         // Healthh
+        droneObj.maxHealth = (float)Math.Round(Random.Range(30f, 40f), 2);      // Healthh
         droneObj.health = droneObj.maxHealth;
-        droneObj.attack = Random.Range(5f, 8f);              // Attack
-        droneObj.speed = Random.Range(3.5f, 4f);             // Speed
-        droneObj.visionRange = Random.Range(3f, 6f);         // Vision Range
-        droneObj.hungerMeter = Random.Range(0.5f, 0.8f);     // Hunger
+        droneObj.attack = (float)Math.Round(Random.Range(5f, 8f), 2);            // Attack
+        droneObj.speed = (float)Math.Round(Random.Range(3.5f, 4f), 2);            // Speed
+        droneObj.visionRange = (float)Math.Round(Random.Range(3f, 6f), 2);         // Vision Range
+        droneObj.hungerMeter = (float)Math.Round(Random.Range(0.5f, 0.8f), 2);     // Hunger
     }
 }
