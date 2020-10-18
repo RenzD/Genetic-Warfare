@@ -5,6 +5,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using System.IO;
+using System.Diagnostics;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
@@ -48,8 +50,7 @@ public class GeneticAlgorithm : MonoBehaviour
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        GameObject w = GameObject.FindWithTag("World");
-        world = w.GetComponent<World>();
+        world = GameObject.FindWithTag("World").GetComponent<World>();
     }
 
     // Update is called once per frame
@@ -166,17 +167,20 @@ public class GeneticAlgorithm : MonoBehaviour
                 sprite.color = new Color(1, 0, 0, 1);
                 if (world.numPopulation1 < world.maxPopulation1)
                 {
+                    ParentSelection("Drone1");
                     timeLeft1 -= Time.deltaTime;
                     if (timeLeft1 < 0)
                     {
                         //Fitness/Selection
-                        ParentSelection("Drone1");
+                        
                         // Initial population
                         if (world.Faction1FirstParent.fitnessScore == 0 || world.Faction1SecondParent.fitnessScore == 0 || world.numInitDrones1 < RANDOMDRONESNUM)
                         {
                             InitializeRandomAttributes(dronePrefab);
                             Faction1 droneObj = Instantiate(dronePrefab, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.identity);
+                            droneObj.droneNum = world.droneNum1++;
                             droneObj.name = "Faction1 Parent " + world.numInitDrones1;
+                            world.generation1++;
                             world.numPopulation1++;
                             world.numInitDrones1++;
                         }
@@ -186,6 +190,7 @@ public class GeneticAlgorithm : MonoBehaviour
                             Crossover(dronePrefab, FACTION1NUM);
                             Mutation(dronePrefab);
                             Faction1 droneObj = Instantiate(dronePrefab, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.identity);
+                            droneObj.droneNum = world.droneNum1++;
                             droneObj.name = "Faction1 Gen " + world.generation1++;
                             world.numPopulation1++;
                         }
@@ -204,7 +209,13 @@ public class GeneticAlgorithm : MonoBehaviour
                     {
                         //Fitness/Selection
                         ParentSelection("Drone2");
-
+                        /*
+                        InitializeDronesWithSetAttributes(dronePrefab2);
+                        Faction2 droneObj = Instantiate(dronePrefab2, new Vector3(spawner.transform.position.x, spawner.transform.position.y, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
+                        droneObj.name = "Faction2 Parent " + world.numInitDrones2;
+                        world.numPopulation2++;
+                        world.numInitDrones2++;
+                        */
                         if (faction2Mom == null || faction2Dad == null || world.numInitDrones2 < RANDOMDRONESNUM)
                         {
                             InitializeRandomAttributes(dronePrefab2);
@@ -223,6 +234,7 @@ public class GeneticAlgorithm : MonoBehaviour
                             droneObj2.name = "Faction2 Gen " + world.generation2++;
                             world.numPopulation2++;
                         }
+                        
                         timeLeft2 = 2f;
                     }
                 }
@@ -230,10 +242,42 @@ public class GeneticAlgorithm : MonoBehaviour
         }
     }
 
+    private void InitializeDronesWithSetAttributes(Faction2 droneObj)
+    {
+        droneObj.wander = 40f;
+        droneObj.seek = 33f;
+        droneObj.arrive = 35f;
+        droneObj.flee = 32.5f;
+        droneObj.flock = 36f;
+        droneObj.capture = 38f;
+
+        droneObj.maxHealth = 40f;      // Healthh
+        droneObj.health = droneObj.maxHealth;
+        droneObj.attack = 6.5f;            // Attack
+        droneObj.speed = 3.5f;            // Speed
+        droneObj.visionRange = 4f;         // Vision Range
+        droneObj.hungerMeter = 0.6f;     // Hunger
+        /*
+         * droneObj.wander = 40f;
+        droneObj.seek = 30f;
+        droneObj.arrive = 35f;
+        droneObj.flee = 32.5f;
+        droneObj.flock = 36f;
+        droneObj.capture = 38f;
+
+        droneObj.maxHealth = 40f;      // Healthh
+        droneObj.health = droneObj.maxHealth;
+        droneObj.attack = 6.5f;            // Attack
+        droneObj.speed = 3.5f;            // Speed
+        droneObj.visionRange = 4f;         // Vision Range
+        droneObj.hungerMeter = 0.6f;     // Hunger
+        */
+    }
+
     /**
      * Crossover/mixes 2 parent drones attributes to create a new drone 
      */
-    private void Crossover(Drone droneObj, int factionNum)
+        private void Crossover(Drone droneObj, int factionNum)
     {
         //Shuffles what parent will pass down their attribute
         ShuffleParents(factionNum);
@@ -324,11 +368,13 @@ public class GeneticAlgorithm : MonoBehaviour
         //Picks between faction 1 or 2
         if (factionNum == FACTION1NUM)
         {
+            // Crossover ratio - 8:3
             droneAttributes = new World.DroneAttributes[] { world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1FirstParent,
-                                                            world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent };
+                                                            world.Faction1FirstParent, world.Faction1FirstParent, world.Faction1SecondParent, world.Faction1SecondParent, world.Faction1SecondParent };
         }
         else if (factionNum == FACTION2NUM)
         {
+            // Crossover ratio - 6:5
             droneAttributes = new World.DroneAttributes[] { world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent, world.Faction2FirstParent,
                                                             world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent, world.Faction2SecondParent };
         }
@@ -341,82 +387,36 @@ public class GeneticAlgorithm : MonoBehaviour
             droneAttributes[i] = tempDroneAtt;
         }
     }
-   
+ 
     /**
      * Selects the best drones as parents
      * Saves top 2 drones attributes to world
      */
     private void ParentSelection(string droneTag)
     {
-        List<GameObject> bestDrones = new List<GameObject>();
-        GameObject[] droneObjects;
+        List<World.DroneAttributes> bestDrones = world.faction1DroneList.OrderByDescending(x => x.fitnessScore).ToList();
+        List<World.DroneAttributes> bestDrones2 = world.faction2DroneList.OrderByDescending(x => x.fitnessScore).ToList();
 
-        droneObjects = GameObject.FindGameObjectsWithTag(droneTag);
-        foreach (GameObject drone in droneObjects)
+        /* Cuts the list to 2 elements
+        List<World.DroneAttributes> faction1Top2 = new List<World.DroneAttributes>();
+        List<World.DroneAttributes> faction2Top2 = new List<World.DroneAttributes>();
+        faction1Top2.Add(faction1Top2.ElementAt(0));
+        faction1Top2.Add(faction1Top2.ElementAt(1));
+        */
+
+        if (bestDrones.Count >= 2 && bestDrones.ElementAt(0).fitnessScore != 0 &&
+                                     bestDrones.ElementAt(1).fitnessScore != 0 &&
+                                     droneTag == "Drone1")
         {
-            Drone droneTracker = drone.GetComponent<Drone>();
-            bestDrones = droneObjects.OrderByDescending(x => x.GetComponent<Drone>().fitnessScore).ToList();
+            world.Faction1FirstParent = bestDrones.ElementAt(0);
+            world.Faction1SecondParent = bestDrones.ElementAt(1);
         }
-
-        if (bestDrones.Count >= 2 && bestDrones.ElementAt(0).GetComponent<Drone>().fitnessScore != 0 &&
-                                     bestDrones.ElementAt(1).GetComponent<Drone>().fitnessScore != 0)
+        else if (bestDrones2.Count >= 2 && bestDrones2.ElementAt(0).fitnessScore != 0 &&
+                                     bestDrones2.ElementAt(1).fitnessScore != 0 &&
+                                     droneTag == "Drone2")
         {
-            if (droneTag == "Drone1")
-            {
-                World.DroneAttributes factionParent;
-                // First parent
-                faction1Mom = bestDrones.ElementAt(0).GetComponent<Drone>();
-                if (world.Faction1FirstParent.fitnessScore == 0)
-                {
-                    factionParent = SetAttributes(faction1Mom);
-                    world.Faction1FirstParent = factionParent;
-                }
-                if (world.Faction1FirstParent.fitnessScore < faction1Mom.fitnessScore)
-                {
-                    factionParent = SetAttributes(faction1Mom);
-                    world.Faction1FirstParent = factionParent;
-                }
-                // Second Parent
-                faction1Dad = bestDrones.ElementAt(1).GetComponent<Drone>();
-                if (world.Faction1SecondParent.fitnessScore == 0)
-                {
-                    factionParent = SetAttributes(faction1Dad);
-                    world.Faction1SecondParent = factionParent;
-                }
-                if (world.Faction1SecondParent.fitnessScore < faction1Dad.fitnessScore)
-                {
-                    factionParent = SetAttributes(faction1Dad);
-                    world.Faction1SecondParent = factionParent;
-                }
-            }
-            else if (droneTag == "Drone2")
-            {
-                World.DroneAttributes factionParent;
-                // First parent
-                faction2Mom = bestDrones.ElementAt(0).GetComponent<Drone>();
-                if (world.Faction2FirstParent.fitnessScore == 0)
-                {
-                    factionParent = SetAttributes(faction2Mom);
-                    world.Faction2FirstParent = factionParent;
-                }
-                if (world.Faction2FirstParent.fitnessScore < faction2Mom.fitnessScore)
-                {
-                    factionParent = SetAttributes(faction2Mom);
-                    world.Faction2FirstParent = factionParent;
-                }
-                // Second Parent
-                faction2Dad = bestDrones.ElementAt(1).GetComponent<Drone>();
-                if (world.Faction2SecondParent.fitnessScore == 0)
-                {
-                    factionParent = SetAttributes(faction2Dad);
-                    world.Faction2SecondParent = factionParent;
-                }
-                if (world.Faction2SecondParent.fitnessScore < faction2Dad.fitnessScore)
-                {
-                    factionParent = SetAttributes(faction2Dad);
-                    world.Faction2SecondParent = factionParent;
-                }
-            }
+            world.Faction2FirstParent = bestDrones2.ElementAt(0);
+            world.Faction2SecondParent = bestDrones2.ElementAt(1);
         }
     }
 
@@ -425,35 +425,27 @@ public class GeneticAlgorithm : MonoBehaviour
      */
     public World.DroneAttributes SetAttributes(Drone drone)
     {
-        World.DroneAttributes factionParent;
-        factionParent.wander = drone.wander;
-        factionParent.seek = drone.seek;
-        factionParent.arrive = drone.arrive;
-        factionParent.flee = drone.flee;
-        factionParent.flock = drone.flock;
+        World.DroneAttributes stats;
+        stats.wander = drone.wander;
+        stats.seek = drone.seek;
+        stats.arrive = drone.arrive;
+        stats.flee = drone.flee;
+        stats.flock = drone.flock;
 
-        factionParent.health = drone.health;
-        factionParent.maxHealth = drone.maxHealth;
-        factionParent.attack = drone.attack;
-        factionParent.speed = drone.speed;
-        factionParent.capture = drone.capture;
-        factionParent.visionRange = drone.visionRange;
-        factionParent.hungerMeter = drone.hungerMeter;
+        stats.health = drone.health;
+        stats.maxHealth = drone.maxHealth;
+        stats.attack = drone.attack;
+        stats.speed = drone.speed;
+        stats.capture = drone.capture;
+        stats.visionRange = drone.visionRange;
+        stats.hungerMeter = drone.hungerMeter;
 
-        factionParent.fitnessScore = drone.fitnessScore;
+        stats.fitnessScore = drone.fitnessScore;
 
         string droneName = drone.name;
         string[] splitArray = droneName.Split(' ');
-
-        if (splitArray[1] == "Parent")
-        {
-            factionParent.generation = "0";
-        }
-        else
-        {
-            factionParent.generation = splitArray[2];
-        }
-        return factionParent;
+        stats.generation = splitArray.Length >= 2 ? splitArray[1] == "Parent" ? "0" : splitArray[2] : "-";
+        return stats;
     }
 
     /**

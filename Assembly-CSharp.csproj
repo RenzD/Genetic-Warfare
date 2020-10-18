@@ -107,6 +107,7 @@
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\Wander1Unit.cs" />
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\Wander2Unit.cs" />
     <Compile Include="Assets\UnityMovementAI\Scripts\Units\WanderAvoidUnit.cs" />
+    <None Include="Assets\Resources\test.txt" />
     <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font2\license.txt" />
     <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font1\license.txt" />
     <None Include="Assets\Unity Assets\SimplePixelUI\fonts\Font1\readme.txt" />

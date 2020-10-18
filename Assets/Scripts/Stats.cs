@@ -90,6 +90,7 @@ public class Stats : MonoBehaviour
         {
             World.DroneAttributes drone = world.Faction2FirstParent;
             SetTexts(drone, "blue");
+
         }
     }
 

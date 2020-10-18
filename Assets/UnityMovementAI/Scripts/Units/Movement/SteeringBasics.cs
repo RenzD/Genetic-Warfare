@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/**
+ * Credits to sturdy spoon 
+ * https://github.com/sturdyspoon/unity-movement-ai
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace UnityMovementAI

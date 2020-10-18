@@ -45,30 +45,10 @@ public class Faction1 : Drone
             { captureStr, capture }
         };
 
-        /** Order by values. LINQ
-         * 
-        var items = from pair in dictionary
-                    orderby pair.Value ascending
-                    select pair;
-
-
-        // Display results.
-        /*
-        foreach (KeyValuePair<string, int> pair in items)
-        {
-            Debug.Log("Key: " + pair.Key + " Value: " +  pair.Value);
-        }
-        */
-
-        // Reverse sort.
-        // ... Can be looped over in the same way as above.
+        // Order values in descending order. LINQ
         var items = from pair in dictionary
                     orderby pair.Value descending
                     select pair;
-
-        /*
-        Debug.Log("0: " + items.ElementAt(0));
-        */
 
         /**
         // CHECK WHEN IN VISION
@@ -110,7 +90,7 @@ public class Faction1 : Drone
                 }
             }
             // ENEMY ONLY
-            // Picks the higher behavior priority between seek and flock
+            // Picks the higher behavior priority between seek and flee
             else if (faction2 != null && faction1 == null && resourceObject == null && territoryObject == null)
             {
                 if (dictionary[seekStr] > dictionary[fleeStr])

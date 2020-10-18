@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/**
+ * Credits to sturdy spoon 
+ * https://github.com/sturdyspoon/unity-movement-ai
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

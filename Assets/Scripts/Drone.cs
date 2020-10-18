@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public abstract class Drone : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public abstract class Drone : MonoBehaviour
         FLOCK,
         CAPTURE
     };
+
+    private const float healthRegenMultiplier = 6f;
+    private const float attackScoreMultiplier = 0.5f;
 
     public BehaviorState behaviorState = BehaviorState.WANDER;
     //AIRigidbody rb;
@@ -64,6 +69,8 @@ public abstract class Drone : MonoBehaviour
     public float fitnessScore;
     public float healthNorm;
 
+    public int droneNum;
+
     [Header("Other")]
     public AvoidSensor colAvoidSensor;
     public Slider slider;
@@ -76,11 +83,13 @@ public abstract class Drone : MonoBehaviour
     public float miningtimer;
     public bool hungryBool;
 
+    World world; 
     protected virtual void Start()
     {
         colAvoidSensor = transform.Find("ColAvoidSensor").GetComponent<AvoidSensor>();
         vision = transform.Find("Vision").GetComponent<Vision>();
         vision.GetComponent<CircleCollider2D>().radius = visionRange;
+        world = GameObject.FindWithTag("World").GetComponent<World>();
         fitnessScore = 0f;
         hungryBool = false;
         GetBehaviorPriority();
@@ -199,15 +208,59 @@ public abstract class Drone : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("Explosion");
             }
             Instantiate(deathEffect, transform.position, Quaternion.Euler(new Vector3(0f, 0f, Random.Range(0f, 360f))));
+
+            if (gameObject.GetComponent<Faction1>())
+            {
+                world.faction1DroneList.Add(SetAttributes(this));
+                world.validList.Add(droneNum, fitnessScore);
+            }
+            if (gameObject.GetComponent<Faction2>())
+            {
+                world.faction2DroneList.Add(SetAttributes(this));
+            }
+
             Destroy(gameObject);
             numPopulation--;
         }
         return numPopulation;
     }
 
+    public World.DroneAttributes SetAttributes(Drone drone)
+    {
+        World.DroneAttributes factionParent;
+        factionParent.wander = drone.wander;
+        factionParent.seek = drone.seek;
+        factionParent.arrive = drone.arrive;
+        factionParent.flee = drone.flee;
+        factionParent.flock = drone.flock;
+
+        factionParent.health = drone.health;
+        factionParent.maxHealth = drone.maxHealth;
+        factionParent.attack = drone.attack;
+        factionParent.speed = drone.speed;
+        factionParent.capture = drone.capture;
+        factionParent.visionRange = drone.visionRange;
+        factionParent.hungerMeter = drone.hungerMeter;
+
+        factionParent.fitnessScore = drone.fitnessScore;
+
+        string droneName = drone.name;
+        string[] splitArray = droneName.Split(' ');
+
+        if (splitArray[1] == "Parent")
+        {
+            factionParent.generation = "0";
+        }
+        else
+        {
+            factionParent.generation = splitArray[2];
+        }
+        return factionParent;
+    }
+
     public virtual void SetHealthSlider()
     {
-        healthNorm = (health - 0f) / (maxHealth - 0f);
+        healthNorm = health / maxHealth;
         slider.value = healthNorm;
     }
 
@@ -220,19 +273,9 @@ public abstract class Drone : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("Blaster");
             }
             enemyDrone.health -= attack;
-            fitnessScore += (attack / 2);
+            fitnessScore += (attack * attackScoreMultiplier);
         }
     }
-
-    /*
-    public virtual void IsAttacked()
-    {
-        if (health > 0)
-        {
-            health -= Time.deltaTime;
-        }
-    }
-    */
     public virtual void HealthDegen()
     {
         if (health > 0)
@@ -244,7 +287,7 @@ public abstract class Drone : MonoBehaviour
     {
         if (health < maxHealth)
         {
-            health += (Time.deltaTime * 6);
+            health += (Time.deltaTime * healthRegenMultiplier);
         }
     }
 

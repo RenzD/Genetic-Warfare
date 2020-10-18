@@ -78,6 +78,7 @@ namespace Tests
             GameObject d1 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone2"), new Vector3(0, 0, 0), Quaternion.identity);
             GameObject t1 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Territory Uncaptured"), new Vector3(3, 0, 0), Quaternion.identity);
             Faction2 drone1 = d1.GetComponent<Faction2>();
+            drone1.name = "Faction1 Gen 0";
             GeneticAlgorithm territory1 = t1.GetComponent<GeneticAlgorithm>();
             yield return new WaitForSeconds(2f);
 
@@ -141,11 +142,10 @@ namespace Tests
             GameObject d1 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone1"), new Vector3(0, -4, 0), Quaternion.identity);
             Faction1 drone1 = d1.GetComponent<Faction1>();
             drone1.health = 1f;
-            yield return new WaitForSeconds(0.1f);
+            drone1.name = "Faction1 Test 0";
+            yield return new WaitForSeconds(2f);
 
-            Assert.Greater(2f, drone1.health);
-            yield return new WaitForSeconds(1f);
-
+            
             bool nBool = false;
             if (d1 == null)
             {
@@ -154,6 +154,7 @@ namespace Tests
             Assert.IsTrue(nBool);
             //Assert.Null(d1);
             yield return null;
+            
         }
 
         [UnityTest]
@@ -162,28 +163,25 @@ namespace Tests
             SceneManager.LoadScene("Simulation");
             yield return null;
 
-            foreach (GeneticAlgorithm territory in GameObject.FindObjectsOfType<GeneticAlgorithm>())
-            {
-                GameObject.Destroy(territory.gameObject);
-            }
-
             foreach (Resource r in GameObject.FindObjectsOfType<Resource>())
             {
                 GameObject.Destroy(r.gameObject);
             }
-
-            foreach (Drone d in GameObject.FindObjectsOfType<Drone>())
-            {
-                GameObject.Destroy(d.gameObject);
-            }
             yield return new WaitForSeconds(0.1f);
 
-            GameObject t1 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Territory Faction1"), new Vector3(0, 0, 0), Quaternion.identity);
             World world = GameObject.FindWithTag("World").GetComponent<World>();
-            yield return new WaitForSeconds(5f);
+            Time.timeScale = 3f;
+            yield return new WaitForSecondsRealtime(15f);
 
             Assert.Less(0, world.Faction1FirstParent.fitnessScore);
             Assert.Less(0, world.Faction1SecondParent.fitnessScore);
+            Assert.GreaterOrEqual(world.Faction1FirstParent.fitnessScore, world.Faction1SecondParent.fitnessScore);
+
+            Assert.Less(0, world.Faction2FirstParent.fitnessScore);
+            Assert.Less(0, world.Faction2SecondParent.fitnessScore);
+
+            Assert.GreaterOrEqual(world.Faction2FirstParent.fitnessScore, world.Faction2SecondParent.fitnessScore);
+
             yield return null;
         }
 
@@ -316,7 +314,7 @@ namespace Tests
             GameObject d3 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone1"), new Vector3(4, 4, 0), Quaternion.identity);
             Faction1 drone3 = d3.GetComponent<Faction1>();
 
-            //Copied Crossover-------------------------------------
+            //Copied Crossover - needs to be changed
             //Shuffles content of crossOrder
             for (int i = 0; i < droneAttributes.Length; i++)
             {
@@ -337,7 +335,7 @@ namespace Tests
             drone3.capture = droneAttributes[8].capture;
             drone3.visionRange = droneAttributes[9].visionRange;
             drone3.hungerMeter = droneAttributes[10].hungerMeter;
-            //Copied Crossover-------------------------------------
+            //-------------------------------------
 
             int drone1Stats = 0;
             int drone2Stats = 0;
@@ -603,7 +601,11 @@ namespace Tests
             Assert.NotNull(drone1);
             Assert.AreEqual(Drone.BehaviorState.FLEE, drone1.behaviorState);
             Assert.AreEqual(Drone.BehaviorState.FLEE, drone2.behaviorState);
+            yield return new WaitForSeconds(3f);
+            Assert.AreNotEqual(Drone.BehaviorState.FLEE, drone1.behaviorState);
+            Assert.AreNotEqual(Drone.BehaviorState.FLEE, drone2.behaviorState);
             yield return null;
+
         }
 
         [UnityTest]
@@ -626,6 +628,7 @@ namespace Tests
             GameObject d2 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone2"), new Vector3(0, 0, 0), Quaternion.identity);
             GameObject uncapTerritory = MonoBehaviour.Instantiate((GameObject)Resources.Load("Territory Uncaptured"), new Vector3(3, 0, 0), Quaternion.identity);
             Faction2 drone2 = d2.GetComponent<Faction2>();
+            drone2.name = "Faction2 Gen 0";
             yield return new WaitForSeconds(2f);
 
             Assert.NotNull(drone2);
@@ -653,6 +656,7 @@ namespace Tests
             GameObject d1 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone1"), new Vector3(0, 0, 0), Quaternion.identity);
             GameObject uncapTerritory = MonoBehaviour.Instantiate((GameObject)Resources.Load("Territory Uncaptured"), new Vector3(3, 0, 0), Quaternion.identity);
             Faction1 drone1 = d1.GetComponent<Faction1>();
+            drone1.name = "Faction1 Gen 0";
             yield return new WaitForSeconds(2f);
 
             Assert.NotNull(drone1);
@@ -722,7 +726,7 @@ namespace Tests
 
             GameObject d2 = MonoBehaviour.Instantiate((GameObject)Resources.Load("Drone2"), new Vector3(0, 0, 0), Quaternion.identity);
             Faction2 drone2 = d2.GetComponent<Faction2>();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
             
             Assert.NotNull(drone2);
             // Based on the behavior ruleset, Drone is defaulted to wander when nothing is around
@@ -854,18 +858,23 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator Check_If_Drones_Are_In_Bound_After_5_Seconds()
+        public IEnumerator Check_If_Drones_Are_In_Bounds()
         {
             SceneManager.LoadScene("Simulation");
-            yield return new WaitForSeconds(5f);
+            yield return null;
 
-            foreach (Drone resource in GameObject.FindObjectsOfType<Drone>())
+            Time.timeScale = 3f;
+            for (int x = 0; x < 12; x++)
             {
-                Assert.LessOrEqual(-54, resource.transform.position.x);
-                Assert.GreaterOrEqual(54, resource.transform.position.x);
+                yield return new WaitForSeconds(5f);
+                foreach (Drone resource in GameObject.FindObjectsOfType<Drone>())
+                {
+                    Assert.LessOrEqual(-54, resource.transform.position.x);
+                    Assert.GreaterOrEqual(54, resource.transform.position.x);
 
-                Assert.LessOrEqual(-30, resource.transform.position.y);
-                Assert.GreaterOrEqual(30, resource.transform.position.y);
+                    Assert.LessOrEqual(-30, resource.transform.position.y);
+                    Assert.GreaterOrEqual(30, resource.transform.position.y);
+                }
             }
             yield return null;
         }
